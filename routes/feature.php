@@ -11,8 +11,10 @@ use App\Http\Controllers\EditorController;
 use App\Http\Controllers\MapController;
 
 /************************ Feature Routes Start ******************************/
-Route::group(['middleware'=>'auth'],function(){
-    Route::group(['prefix'=>'{language}'],function(){        
+Route::group([
+    // 'middleware'=>'auth'
+],function(){
+    // Route::group(['prefix'=>'{language}'],function(){        
         Route::group(['prefix'=>'chart','as'=>'chart.'],function(){    
             Route::get('chartjs',[ChartController::class,'index'])->name('chartjs');
             Route::get('google',[ChartController::class,'google'])->name('google');
@@ -61,5 +63,5 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('vector',[MapController::class,'vector'])->name('vector');            
         });
     });
-});
+// });
 /************************ Feature Routes Ends ******************************/

@@ -20,8 +20,11 @@ use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\JobController;
 
 /************************ Application Routes Start ******************************/
-Route::group(['middleware'=>'auth'],function(){
-    Route::group(['prefix'=>'{language}'],function(){
+Route::group(
+    // ['middleware'=>'auth'],
+    [],
+    function(){
+    // Route::group(['prefix'=>'{language}'],function(){
         Route::group(['prefix'=>'applications'],function(){
             Route::group(['prefix'=>'support','as'=>'support.'],function(){
                 Route::get('support-ticket',[SupportController::class,'index'])->name('support_ticket');
@@ -102,7 +105,7 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('support-ticket',[SupportController::class,'index'])->name('support_ticket');
             Route::get('support-details',[SupportController::class,'detail'])->name('support_detail');
             
-        });
+        // });
     });    
 });
 /************************ Application Routes Ends ******************************/

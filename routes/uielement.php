@@ -5,7 +5,7 @@ use App\Http\Controllers\UIElementController;
 
 /************************ UIElement Routes Start ******************************/
 Route::group(['middleware'=>'auth'],function(){
-    Route::group(['prefix'=>'{language}'],function(){
+    // Route::group(['prefix'=>'{language}'],function(){
         Route::group(['prefix'=>'ui','as'=>'ui.'],function(){    
             Route::get('alert',[UIElementController::class,'index'])->name('alert');
             Route::get('avatar',[UIElementController::class,'avatar'])->name('avatar');
@@ -51,6 +51,6 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('timepicker',[UIElementController::class,'timepicker'])->name('timepicker');
             Route::get('uploads',[UIElementController::class,'uploads'])->name('uploads');
         });
-    });    
+    // });    
 });
 /************************ UIElement Routes Ends ******************************/
