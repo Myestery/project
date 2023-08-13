@@ -1,6 +1,6 @@
 <div class="sidebar__menu-group">
     <ul class="sidebar_nav">
-        <li class="has-child {{ Request::is(app()->getLocale().'/dashboards/*') ? 'open':'' }}">
+        <li class=" {{ Request::is(app()->getLocale().'/dashboards/*') ? 'open':'' }}">
             <a href="/" class="{{ Request::is(app()->getLocale().'/dashboards/*') ? 'active':'' }}">
                 <span class="nav-icon uil uil-create-dashboard"></span>
                 <span class="menu-text">Find Hotels</span>
