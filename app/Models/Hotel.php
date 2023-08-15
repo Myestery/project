@@ -12,4 +12,14 @@ class Hotel extends Model
     protected $casts = [
         'images' => 'array'
     ];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

@@ -338,76 +338,87 @@
                     <!-- End: Top Bar -->
                     <!-- Start: Shop Item -->
                     <div class="row product-page-list">
-                        <div class="col-12 mb-30 px-10">
+                        @foreach ($hotels as $hotel)
+                            <div class="col-12 mb-30 px-10">
 
-                            <div class="card product product--list">
-                                <div class="h-100">
-                                    <div class="product-item">
-                                        <div class="product-item__image">
-                                            <img src="{{ asset('assets/img/digital-chair.png') }}" alt="digital-chair">
-                                        </div>
-                                        <div class="product-item__body mt-xl-20 mt-0 position-relative">
-                                            <span class="like-icon">
-                                                <button type="button" class="content-center">
-                                                    <i class="lar la-heart icon"></i>
-                                                </button>
-                                            </span>
-                                            <div class="product-item__title">
-                                                <a href="#">
-                                                    <h6 class="card-title">Commodo Adipiscing</h6>
-                                                </a>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                                                    sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+                                <div class="card product product--list">
+                                    <div class="h-100">
+                                        <div class="product-item">
+                                            <div class="product-item__image">
+                                                <img src="{{ $hotel->images[0] }}" alt="hotel image"
+                                                    class="img-fluid w-100">
                                             </div>
-                                            <div class="product-item__content text-capitalize">
-                                                <div class="d-flex align-items-center mb-2 flex-wrap">
-                                                    <span class="product-desc-price ">$200.00</span>
-                                                    <span class="product-price">$100.00</span>
-                                                    <span class="product-discount">50% Off</span>
-                                                </div>
-                                                <div class="stars-rating d-flex align-items-center flex-wrap">
-                                                    <span class="star-icon las la-star active"></span>
-                                                    <span class="star-icon las la-star active"></span>
-                                                    <span class="star-icon las la-star active"></span>
-                                                    <span class="star-icon las la-star active"></span>
-                                                    <span class="star-icon las la-star-half-alt active"></span>
-                                                    <span class="stars-rating__point">4.9</span>
-                                                    <span class="stars-rating__review">
-                                                        <span>778</span> Reviews</span>
-                                                </div>
-                                                <div class="product-item__button d-xl-block d-flex flex-wrap">
-
-
-
-                                                    <button
-                                                        class="btn btn-default btn-squared color-light btn-outline-light ms-lg-0 ms-0 me-2 mb-lg-10"><img
-                                                            src="{{ asset('assets/img/svg/shopping-bag.svg') }}"
-                                                            alt="shopping-bag" class="svg">
-                                                        Add To Cart
+                                            <div class="product-item__body mt-xl-20 mt-0 position-relative">
+                                                <span class="like-icon">
+                                                    <button type="button" class="content-center">
+                                                        <i class="lar la-heart icon"></i>
                                                     </button>
+                                                </span>
+                                                <div class="product-item__title">
+                                                    <a href={{ "/hotels/$hotel->id" }}>
+                                                        <h6 class="card-title">
+                                                            {{ $hotel->name }}
+                                                        </h6>
+                                                    </a>
+                                                    <p class="mb-0">{{ $hotel->description }}
+                                                    </p>
+                                                </div>
+                                                <div class="product-item__content text-capitalize">
+                                                    <div class="d-flex align-items-center mb-2 flex-wrap">
+                                                        <span
+                                                            class="product-desc-price ">N{{ number_format($hotel->min_price, 0, '', ',') }}
+                                                            - N{{ number_format($hotel->max_price, 0, '', ',') }}</span>
+
+                                                    </div>
+                                                    <div class="stars-rating d-flex align-items-center flex-wrap">
+                                                        @php
+                                                            $rating = $hotel->rating; // Replace this with the actual rating value
+                                                            $fullStars = floor($rating);
+                                                            $halfStar = $rating - $fullStars >= 0.5;
+                                                        @endphp
+
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @if ($i <= $fullStars)
+                                                                <span class="star-icon las la-star active"></span>
+                                                            @elseif ($i == $fullStars + 1 && $halfStar)
+                                                                <span class="star-icon las la-star-half-alt active"></span>
+                                                            @else
+                                                                <span class="star-icon las la-star"></span>
+                                                            @endif
+                                                        @endfor
+
+                                                        <span class="stars-rating__point">{{ $rating }}</span>
+                                                        <span class="stars-rating__review">
+                                                            <span>{{ 778 }}</span> Reviews
+                                                        </span>
+                                                    </div>
 
 
 
 
 
 
-                                                    <button
-                                                        class="btn btn-primary btn-default btn-squared border-0 ms-0">buy
-                                                        now
-                                                    </button>
+                                                    <div class="product-item__button d-xl-block d-flex flex-wrap">
 
 
 
+                                                        <a
+                                                            class="btn btn-default btn-squared color-light btn-outline-light ms-lg-0 ms-0 me-2 mb-lg-10"
+                                                            href={{"/hotels/$hotel->id"}}
+                                                            >
+                                                            Browse Rooms
+                                                        </a>
 
-
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
+                            </div>
+                        @endforeach
+
                     </div>
                     <!-- End: Shop Item -->
                     <div class="row">
@@ -415,37 +426,14 @@
                             <div class="user-pagination">
                                 <div class="d-flex justify-content-md-end justify-content-center mt-1 mb-30">
 
-                                    <nav class="dm-page ">
+                                    <nav class="dm-page">
                                         <ul class="dm-pagination d-flex">
                                             <li class="dm-pagination__item">
-                                                <a href="#" class="dm-pagination__link pagination-control"><span
-                                                        class="la la-angle-left"></span></a>
-                                                <a href="#" class="dm-pagination__link"><span
-                                                        class="page-number">1</span></a>
-                                                <a href="#" class="dm-pagination__link active"><span
-                                                        class="page-number">2</span></a>
-                                                <a href="#" class="dm-pagination__link"><span
-                                                        class="page-number">3</span></a>
-                                                <a href="#" class="dm-pagination__link pagination-control"><span
-                                                        class="page-number">...</span></a>
-                                                <a href="#" class="dm-pagination__link"><span
-                                                        class="page-number">12</span></a>
-                                                <a href="#" class="dm-pagination__link pagination-control"><span
-                                                        class="la la-angle-right"></span></a>
-                                                <a href="#" class="dm-pagination__option">
-                                                </a>
-                                            </li>
-                                            <li class="dm-pagination__item">
-                                                <div class="paging-option">
-                                                    <select name="page-number" class="page-selection">
-                                                        <option value="20">20/page</option>
-                                                        <option value="40">40/page</option>
-                                                        <option value="60">60/page</option>
-                                                    </select>
-                                                </div>
+                                                {!! $hotels->onEachSide(1)->links('pagination::bootstrap-4') !!}
                                             </li>
                                         </ul>
                                     </nav>
+
 
 
                                 </div>

@@ -2,7 +2,7 @@
     <ul class="sidebar_nav">
         <li class=" {{ Request::is(app()->getLocale().'/dashboards/*') ? 'open':'' }}">
             <a href="/" class="{{ Request::is(app()->getLocale().'/dashboards/*') ? 'active':'' }}">
-                <span class="nav-icon uil uil-create-dashboard"></span>
+                <span class="nav-icon uil uil-search"></span>
                 <span class="menu-text">Find Hotels</span>
                 {{-- <span class="toggle-icon"></span> --}}
             </a>
@@ -19,8 +19,8 @@
             <span>Bookings And Reservations</span>
         </li>
         <li>
-            <a href="{{ route('calendar',app()->getLocale()) }}" class="{{ Request::is(app()->getLocale().'/applications/calendar') ? 'active':'' }}">
-                <span class="nav-icon uil uil-calendar-alt"></span>
+            <a href="{{ route('bookings',app()->getLocale()) }}" class="{{ Request::is(app()->getLocale().'/applications/calendar') ? 'active':'' }}">
+                <span class="nav-icon uil uil-bookmark"></span>
                 <span class="menu-text">My Bookings</span>
             </a>
         </li>

@@ -15,5 +15,10 @@ class HotelSeeder extends Seeder
     public function run()
     {
         \App\Models\Hotel::factory(250)->create();
+
+        // create 25 rooms for each hotel
+        \App\Models\Hotel::all()->each(function ($hotel) {
+            $hotel->rooms()->saveMany(\App\Models\Room::factory(25)->make());
+        });
     }
 }

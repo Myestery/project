@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PaginationController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\PaginationController;
 */
 
 Route::get('/', [HotelsController::class, 'index'])->name('index');
+Route::get('/hotels/{hotel}', [HotelsController::class, 'view'])->name('hotels.view');
+Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
 Route::group(['middleware' => 'guest'], function () {
 
     // Route::get('/',[AuthController::class,'login'])->name('login');
