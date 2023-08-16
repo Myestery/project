@@ -1,25 +1,16 @@
 <div class="sidebar__menu-group">
     <ul class="sidebar_nav">
-        <li class=" {{ Request::is(app()->getLocale().'/dashboards/*') ? 'open':'' }}">
+        <li class=" {{ Request::is('/') ? 'open':'' }}">
             <a href="/" class="{{ Request::is(app()->getLocale().'/dashboards/*') ? 'active':'' }}">
                 <span class="nav-icon uil uil-search"></span>
                 <span class="menu-text">Find Hotels</span>
-                {{-- <span class="toggle-icon"></span> --}}
             </a>
         </li>
-
-        {{-- <li>
-            <a href="{{ route('changelog',app()->getLocale()) }}" class="{{ Request::is(app()->getLocale().'/changelog') ? 'active':'' }}">
-                <span class="nav-icon uil uil-arrow-growth"></span>
-                <span class="menu-text">{{ trans('menu.changelog-menu-title') }}</span>
-                <span class="badge badge-info-10 menuItem rounded-pill">1.0.1</span>
-            </a>
-        </li> --}}
         <li class="menu-title mt-30">
             <span>Bookings And Reservations</span>
         </li>
         <li>
-            <a href="{{ route('bookings',app()->getLocale()) }}" class="{{ Request::is(app()->getLocale().'/applications/calendar') ? 'active':'' }}">
+            <a href="{{ route('bookings') }}" class="{{ Request::is('/bookings') ? 'active':'' }}">
                 <span class="nav-icon uil uil-bookmark"></span>
                 <span class="menu-text">My Bookings</span>
             </a>
@@ -30,7 +21,7 @@
         </li>
        
         <li>
-            <a href="{{ route('pages.faq',app()->getLocale()) }}" class="{{ Request::is(app()->getLocale().'/pages/faq') ? 'active':'' }}">
+            <a href="{{ route('dashboard') }}" class="{{ Request::is('/dashboard') ? 'active':'' }}">
                 <span class="nav-icon uil uil-question-circle"></span>
                 <span class="menu-text">Overview</span>
             </a>
