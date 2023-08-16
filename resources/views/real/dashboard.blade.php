@@ -23,7 +23,7 @@
                 @include('components.real.overview_cards')
                 @include('components.real.sales_revenue')
                 @include('components.real.source_revenue')
-                @include('components.real.new_product')
+                {{-- @include('components.real.new_product') --}}
                 @include('components.real.best_seller')
 
             </div>

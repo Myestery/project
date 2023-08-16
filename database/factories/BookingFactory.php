@@ -33,6 +33,7 @@ class BookingFactory extends Factory
             'check_in' => Carbon::now(),
             'check_out' => Carbon::now()->addDays(3),
             'total_price' => $this->faker->numberBetween(10_000, 90_000),
+            'created_at' => Carbon::now()->subDays($this->faker->numberBetween(1, 100)),
         ];
     }
 }

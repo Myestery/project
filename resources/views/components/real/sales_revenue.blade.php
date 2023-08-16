@@ -87,5 +87,40 @@
         </div>
         <!-- ends: .card-body -->
     </div>
-
+    @section('scripts')
+        <script>
+            $.ready.then(function() {
+                $("#tl_revenue-week-tab").on("shown.bs.tab", function() {
+                    chartjsLineChart(
+                            "saleRevenueWeek",
+                            "113",
+                            (data = @json($week_vals)),
+                            (labels = @json($week_keys)),
+                            "Current period",
+                            !0
+                        ),
+                        $("#tl_revenue-week-tab").off();
+                });
+                $("#tl_revenue-month-tab").on("shown.bs.tab", function() {
+                    chartjsLineChart(
+                            "saleRevenueMonth",
+                            "113",
+                            (data = @json($month_vals)),
+                            (labels = @json($month_keys)),
+                            "Current period",
+                            !0
+                        ),
+                        $("#tl_revenue-month-tab").off();
+                });
+                chartjsLineChart(
+                    "saleRevenueToday",
+                    "113",
+                    (data = @json($year_vals)),
+                    (labels = @json($year_keys)),
+                    "Current period",
+                    !0
+                );
+            })
+        </script>
+    @endsection
 </div>
