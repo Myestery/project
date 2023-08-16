@@ -22,6 +22,7 @@ Route::get('/', [HotelsController::class, 'index'])->name('index');
 Route::get('/hotels/{hotel}', [HotelsController::class, 'view'])->name('hotels.view');
 Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
 Route::get('/dashboard', [HotelsController::class, 'dashboard'])->name('dashboard');
+Route::get('/admin/rooms', [HotelsController::class, 'adminRooms'])->name('admin.rooms');
 Route::group(['middleware' => 'guest'], function () {
 
     // Route::get('/',[AuthController::class,'login'])->name('login');

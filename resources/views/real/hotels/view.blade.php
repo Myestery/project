@@ -146,20 +146,21 @@
                             </div>
                         </div>
 
-                        <div class="contact-profile-card text-center">
+                        <a href="/rooms/{{ $room->id }}" class="contact-profile-card text-center">
                             <div class="cp-img d-flex justify-content-center">
                                 <img class="cp-img__main" src="{{ $room->image }}" alt="ninjadash Contact">
                             </div>
                             <div class="cp-info">
                                 <h6 class="cp-info__title">
-                                    <span class="product-desc-price ">N{{ number_format($room->price, 0, '', ',') }}
-                                    </span>
-
+                                    <span class="product-desc-price">N{{ number_format($room->price, 0, '', ',') }}</span>
                                 </h6>
-                                <span class="cp-info__designation"> {{ $room->type }}</span>
-
+                                <span class="cp-info__designation">{{ $room->type }}</span>
+                                <div class="cp-info__designation"
+                                    style="color: {{ $room->is_available ? 'green' : 'red' }}">
+                                    {{ $room->is_available ? 'Available' : 'Booked' }}
+                                </div>
                             </div>
-                        </div>
+                        </a>
 
                         <div class="card-footer mt-20 pt-20 pb-20 px-0 bg-transparent">
                             <ul class="c-info-list">

@@ -29,6 +29,8 @@ class HotelsController extends Controller
         $title = $hotel->name;
         $description = $hotel->name;
         $rooms = $hotel->rooms()->paginate();
+        // load is_booked attribute
+        // $rooms->append('is_available');
         return view('real.hotels.view', compact('title', 'description', 'hotel', 'rooms'));
     }
 
@@ -161,5 +163,25 @@ class HotelsController extends Controller
             // best selling rooms
             'best_selling_rooms'
         ));
+    }
+
+    public function adminRooms(){
+        $title = "View Hotels in Nigeria";
+        $hotel = Hotel::first();
+        $description = "View Hotels in Nigeria";
+        $search = request()->query('search');
+        if ($search) {
+            $rooms = $hotel->rooms()->where('number', 'LIKE', "%{$search}%")->get();
+        } else {
+            $rooms = $hotel->rooms()->get();
+        }
+        $available_rooms = $rooms->filter(function($room){
+            return $room->is_available;
+        });
+        $booked_rooms = $rooms->filter(function($room){
+            return !$room->is_available;
+        });
+
+        return view('real.rooms.admin_list', compact('title', 'description', 'rooms','available_rooms','booked_rooms','search'));
     }
 }

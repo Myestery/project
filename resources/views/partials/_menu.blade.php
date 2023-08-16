@@ -22,8 +22,15 @@
        
         <li>
             <a href="{{ route('dashboard') }}" class="{{ Request::is('/dashboard') ? 'active':'' }}">
-                <span class="nav-icon uil uil-question-circle"></span>
+                <span class="nav-icon uil uil-apps"></span>
                 <span class="menu-text">Overview</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('admin.rooms') }}" class="{{ Request::is('/admin/rooms') ? 'active':'' }}">
+                <span class="nav-icon fa fa-list"></span>
+                <span class="menu-text">View Rooms</span>
             </a>
         </li>
 
@@ -31,13 +38,6 @@
             <a href="{{ route('calendar',app()->getLocale()) }}" class="{{ Request::is(app()->getLocale().'/applications/calendar') ? 'active':'' }}">
                 <span class="nav-icon uil uil-calendar-alt"></span>
                 <span class="menu-text">Calendar View</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="{{ route('calendar',app()->getLocale()) }}" class="{{ Request::is(app()->getLocale().'/applications/calendar') ? 'active':'' }}">
-                <span class="nav-icon uil uil-calendar-alt"></span>
-                <span class="menu-text">View Rooms</span>
             </a>
         </li>
 
