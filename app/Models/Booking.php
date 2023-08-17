@@ -14,6 +14,10 @@ class Booking extends Model
         'check_out' => 'datetime',
     ];
 
+    protected $guarded = [];
+
+    protected $appends = ['days'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -27,5 +31,17 @@ class Booking extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
+
+    public function getDaysAttribute()
+    {
+        $checkIn = \Carbon\Carbon::parse($this->check_in);
+        $checkOut = \Carbon\Carbon::parse($this->check_out);
+        return $checkIn->diffInDays($checkOut);
     }
 }

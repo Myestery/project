@@ -18,20 +18,15 @@ class BookingSeeder extends Seeder
     public function run()
     {
         $users = User::all();
-        $hotels = Hotel::all();
 
         foreach ($users as $user) {
-            foreach ($hotels as $hotel) {
+            for ($i = 0; $i < 5; $i++) {
+                $hotel_id = rand(1, 250); // 250 is the number of hotels (see HotelSeeder.php
                 Booking::factory()->create([
                     'user_id' => $user->id,
-                    'hotel_id' => $hotel->id,
-                    'room_id' => $hotel->rooms->random()->id,
+                    'hotel_id' => $hotel_id,
+                    'room_id' => Hotel::find($hotel_id)->rooms->random()->id,
                 ]);
-
-                // You can also associate a room to the booking here
-                // $room = $hotel->rooms->random();
-                // $booking->room_id = $room->id;
-                // $booking->save();
             }
         }
     }

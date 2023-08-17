@@ -37,10 +37,10 @@ class HotelsController extends Controller
 
     public function dashboard()
     {
-        $hotel = Hotel::first();
+        $hotel = auth()->user()->hotel;
         $title = $hotel->name;
         $description = $hotel->name;
-        $rooms = $hotel->rooms()->paginate();
+        $rooms = $hotel->rooms()->paginate(); 
         // stats
         $total_sales = $hotel->bookings()->sum('total_price');
         $total_bookings = $hotel->bookings()->count();

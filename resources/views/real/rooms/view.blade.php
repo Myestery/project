@@ -134,12 +134,6 @@
                     </div>
 
                     <div class="card-body">
-                        {{-- <div class="d-flex justify-content-center" style="min-height: 400px; height:100%">
-                            <div style="display: flex; align-items: center"> <button type="button"
-                                    class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-basic">Book
-                                    Room</button>
-                            </div>
-                        </div> --}}
 
                         <div class="modal-content" style="box-shadow: 0ch">
                             <div class="modal-header">
@@ -149,7 +143,8 @@
                             </div>
                             <div class="modal-body">
                                 <div class="c-event-form">
-                                    <form action="#">
+                                    <form method="POST" action="/rooms/{{$room->id}}/pay">
+                                        @csrf
                                         <div class="dm-date-ranger position-relative d-flex align-items-center">
                                             <div class="form-group mb-0">
                                                 <input type="text" name="date-range-from"

@@ -32,8 +32,26 @@ class BookingFactory extends Factory
             },
             'check_in' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
             'check_out' => $this->faker->dateTimeBetween('+1 week', '+2 week'),
-            'total_price' => $this->faker->numberBetween(10_000, 90_000),
+            'total_price' => $this->faker->numberBetween(2_000, 90_000),
             'created_at' => Carbon::now()->subDays($this->faker->numberBetween(1, 100)),
         ];
+    }
+    // after a booking is created, we want to create a transaction for it
+    public function configure()
+    {
+        return $this->afterCreating(function (\App\Models\Booking $booking) {
+            $ref =  "flw_" .$this->faker->unique()->uuid;
+            \App\Models\Transaction::factory()->create([
+                'user_id' => $booking->user_id,
+                'booking_id' => $booking->id,
+                'room_id' => $booking->room_id,
+                'amount' => $booking->total_price,
+                'currency' => 'NGN',
+                'payment_reference' =>$ref,
+                'flw_ref' => $ref, 
+                'flw_transaction_id' => $this->faker->numberBetween(1000, 9000),
+                'status' => true,
+            ]);
+        });
     }
 }

@@ -32,7 +32,7 @@ class RoomFactory extends Factory
             'hotel_id' => $this->faker->numberBetween(1, 10),
             'number' =>  $number,
             'type' => $roomType,
-            'price' => $this->faker->numberBetween(12_000, 500_000),
+            'price' => $this->faker->numberBetween(2_000, 5_000),
             'capacity' => match ($roomType) {
                 'Single' => 1,
                 'Double' => 2,

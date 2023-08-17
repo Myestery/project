@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Middleware\IsHotelAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HotelsController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PaginationController;
+use App\Http\Controllers\FlutterwaveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/hotels/{hotel}', [HotelsController::class, 'view'])->name('hotels.view');
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
     Route::get('/rooms/{room}', [HotelsController::class, 'room'])->name('rooms.view');
-    Route::middleware(['can-manage-hotels'])->group(function () {
+    Route::post('/rooms/{room}/pay', [FlutterwaveController::class, 'initialize'])->name('pay');
+    Route::get('/rooms/{room}/pay/callback', [FlutterwaveController::class, 'callback'])->name('pay.callback');
+    Route::get('/invoice/{booking}', [BookingController::class, 'invoice'])->name('invoice');
+    Route::middleware([IsHotelAdmin::class])->group(function () {
         Route::get('/admin/rooms', [HotelsController::class, 'adminRooms'])->name('admin.rooms');
         Route::get('/dashboard', [HotelsController::class, 'dashboard'])->name('dashboard');
     });
