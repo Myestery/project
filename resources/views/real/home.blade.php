@@ -328,11 +328,7 @@
                     <!-- Start: Top Bar -->
                     <div class="shop_products_top_filter">
                         <div class="project-top-wrapper d-flex flex-wrap align-items-center">
-                            <div class="project-top-left d-flex flex-wrap align-items-center">
-                                <span class="project-result-showing fs-14 color-gray text-center mt-lg-0 mt-35">Showing
-                                    <span>1–8</span> of <span>86</span>
-                                    results</span>
-                            </div>
+                            
                         </div>
                     </div>
                     <!-- End: Top Bar -->

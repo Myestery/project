@@ -10,7 +10,7 @@
                         <h4 class="text-capitalize breadcrumb-title">Bookings</h4>
                         <div class="breadcrumb-action justify-content-center flex-wrap">
                             <nav aria-label="breadcrumb">
-                            
+
                             </nav>
                         </div>
                     </div>
@@ -42,7 +42,11 @@
                                                     <img class="me-3 wh-80 align-self-center radius-xl"
                                                         src="{{ $booking->room->image }}" alt="Generic placeholder image">
                                                     <div class="media-body">
-                                                        <h5 class="mt-0">{{ $booking->room->number }}</h5>
+                                                        <h5 class="mt-0">
+                                                            <a href="{{ route('rooms.view', $booking->room->id) }}">
+                                                                {{ $booking->room->number }}
+                                                            </a>
+                                                        </h5>
                                                         <div class="d-flex">
                                                             <p>Size:<span>{{ $booking->room->type }}</span></p>
                                                             {{-- <p>color:<span>brown</span></p> --}}
@@ -50,8 +54,8 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="price">{{ $booking->check_in->diffForHumans()}}</td>
-                                            <td class="price">{{ $booking->check_out->diffForHumans()}}</td>
+                                            <td class="price">{{ $booking->check_in->diffForHumans() }}</td>
+                                            <td class="price">{{ $booking->check_out->diffForHumans() }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="product-cart__badge product-cart__badge--success me-2">
@@ -59,7 +63,8 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center subtotal">N{{ number_format($booking->total_price, 0, '', ',')  }}</td>
+                                            <td class="text-center subtotal">
+                                                N{{ number_format($booking->total_price, 0, '', ',') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -7,17 +7,19 @@ use Validator;
 use Auth;
 use App\Models\User;
 
-class AuthController extends Controller {
-    
+class AuthController extends Controller
+{
+
     /**
      * Display login of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function login(){
+    public function login()
+    {
         $title = "Login";
         $description = "Some description for the page";
-        return view('auth.login',compact('title','description'));
+        return view('auth.login', compact('title', 'description'));
     }
 
     /**
@@ -25,10 +27,11 @@ class AuthController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function register(){
+    public function register()
+    {
         $title = "Register";
         $description = "Some description for the page";
-        return view('auth.register',compact('title','description'));
+        return view('auth.register', compact('title', 'description'));
     }
 
     /**
@@ -36,10 +39,11 @@ class AuthController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function forgetPassword(){
+    public function forgetPassword()
+    {
         $title = "Forget Password";
         $description = "Some description for the page";
-        return view('auth.forget_password',compact('title','description'));
+        return view('auth.forget_password', compact('title', 'description'));
     }
 
     /**
@@ -47,22 +51,23 @@ class AuthController extends Controller {
      *
      * @return 
      */
-    public function signup(Request $request){
-        $validators=Validator::make($request->all(),[
-            'name'=>'required',
-            'email'=>'required|email|unique:users',
-            'password'=>'required'
+    public function signup(Request $request)
+    {
+        $validators = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required'
         ]);
-        if($validators->fails()){
+        if ($validators->fails()) {
             return redirect()->route('register')->withErrors($validators)->withInput();
-        }else{
+        } else {
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
             auth()->login($user);
-            return redirect()->intended(route('dashboard.demo_one','en'))->with('message','Registration was successfull !');            
+            return redirect()->intended(route('dashboard.demo_one', 'en'))->with('message', 'Registration was successfull !');
         }
     }
 
@@ -71,18 +76,19 @@ class AuthController extends Controller {
      *
      * @return 
      */
-    public function authenticate(Request $request){
-        $validators=Validator::make($request->all(),[
-            'email'=>'required|email',
-            'password'=>'required'
+    public function authenticate(Request $request)
+    {
+        $validators = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
-        if($validators->fails()){
+        if ($validators->fails()) {
             return redirect()->route('login')->withErrors($validators)->withInput();
-        }else{
-            if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-                return redirect()->intended(route('dashboard.demo_one','en'))->with('message','Welcome back !');
-            }else{
-                return redirect()->route('login')->with('message','Login failed !Email/Password is incorrect !');
+        } else {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect('/')->with('message', 'Welcome back !');
+            } else {
+                return redirect()->route('login')->with('message', 'Login failed !Email/Password is incorrect !');
             }
         }
     }
@@ -92,8 +98,9 @@ class AuthController extends Controller {
      *
      * @return 
      */
-    public function logout(){  
-        Auth::logout(); 
-        return redirect()->route('login')->with('message','Successfully Logged out !');       
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('message', 'Successfully Logged out !');
     }
 }

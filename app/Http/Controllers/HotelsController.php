@@ -50,6 +50,9 @@ class HotelsController extends Controller
         // return some data for graph
         // an array of prices for the last 7 days
         // [mon,tue,wed,thu,fri,sat,sun]
+        /**
+         * @var \Illuminate\Support\Collection
+         */
         $total_bookings_weekly = $hotel->bookings()->whereBetween('created_at', [now()->subDays(7), now()])->get();
         $total_bookings_weekly = $total_bookings_weekly->groupBy(function ($item, $key) {
             return $item->created_at->format('D');
@@ -60,6 +63,11 @@ class HotelsController extends Controller
         });
         // fill in the missing days
         $filler = ['Mon' => 0, 'Tue' => 0, 'Wed' => 0, 'Thu' => 0, 'Fri' => 0, 'Sat' => 0, 'Sun' => 0];
+        if (count($total_bookings_weekly) == 0) {
+            $total_bookings_weekly = collect([
+                'Mon' => 0
+            ]);
+        }
         $total_bookings_weekly = $total_bookings_weekly->merge(collect($filler)->diffKeys($total_bookings_weekly));
         // ->sortKeys();
         $week_keys = $total_bookings_weekly->keys()->toArray();
@@ -79,6 +87,11 @@ class HotelsController extends Controller
         for ($i = 1; $i <= 30; $i++) {
             $filler[$i] = 0;
         }
+        if (count($total_bookings_monthly) == 0) {
+            $total_bookings_monthly = collect([
+                '1' => 0
+            ]);
+        }
         $total_bookings_monthly = $total_bookings_monthly->merge(collect($filler)->diffKeys($total_bookings_monthly));
         // ->sortKeys();
         $month_keys = $total_bookings_monthly->keys()->toArray();
@@ -95,6 +108,11 @@ class HotelsController extends Controller
         });
         // fill in the missing days
         $filler = ['Jan' => 0, 'Feb' => 0, 'Mar' => 0, 'Apr' => 0, 'May' => 0, 'Jun' => 0, 'Jul' => 0, 'Aug' => 0, 'Sep' => 0, 'Oct' => 0, 'Nov' => 0, 'Dec' => 0];
+        if (count($total_bookings_yearly) == 0) {
+            $total_bookings_yearly = collect([
+                'Jan' => 0
+            ]);
+        }
         $total_bookings_yearly = $total_bookings_yearly->merge(collect($filler)->diffKeys($total_bookings_yearly));
         // ->sortKeys();
         $year_keys = $total_bookings_yearly->keys()->toArray();

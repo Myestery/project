@@ -15,6 +15,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::factory(10)->create();
+        // create the test user
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'ludwig.bruen@example.org',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.org',
+            'hotel_id' => 1,
+        ]);
         $this->call(StateSeeder::class);
         $this->call(HotelSeeder::class);
         $this->call(RoomSeeder::class);

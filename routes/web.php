@@ -18,19 +18,23 @@ use App\Http\Controllers\PaginationController;
 |
 */
 
-Route::get('/', [HotelsController::class, 'index'])->name('index');
-Route::get('/hotels/{hotel}', [HotelsController::class, 'view'])->name('hotels.view');
-Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
-Route::get('/dashboard', [HotelsController::class, 'dashboard'])->name('dashboard');
-Route::get('/rooms/{room}', [HotelsController::class, 'room'])->name('rooms.view');
-Route::get('/admin/rooms', [HotelsController::class, 'adminRooms'])->name('admin.rooms');
-Route::group(['middleware' => 'guest'], function () {
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [HotelsController::class, 'index'])->name('index');
+    Route::get('/hotels/{hotel}', [HotelsController::class, 'view'])->name('hotels.view');
+    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+    Route::get('/rooms/{room}', [HotelsController::class, 'room'])->name('rooms.view');
+    Route::middleware(['can-manage-hotels'])->group(function () {
+        Route::get('/admin/rooms', [HotelsController::class, 'adminRooms'])->name('admin.rooms');
+        Route::get('/dashboard', [HotelsController::class, 'dashboard'])->name('dashboard');
+    });
+});
 
-    // Route::get('/',[AuthController::class,'login'])->name('login');
-    // Route::get('/register',[AuthController::class,'register'])->name('register');
-    // Route::get('/forget-password',[AuthController::class,'forgetPassword'])->name('forget_password');
-    // Route::post('/authenticate',[AuthController::class,'authenticate'])->name('authenticate');
-    // Route::post('/signup',[AuthController::class,'signup'])->name('signup');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::get('/forget-password', [AuthController::class, 'forgetPassword'])->name('forget_password');
+    Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
+    Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
