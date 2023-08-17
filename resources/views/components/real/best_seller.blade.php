@@ -29,7 +29,7 @@
                                                             src="{{ $room->image }}"
                                                             alt="img">
                                                     </div>
-                                                    <span>{{$room->number}}</span>
+                                                    <a href="/rooms/{{$room->id}}">{{$room->number}}</a>
                                                 </div>
                                             </td>
                                             <td>{{$room->total}}</td>

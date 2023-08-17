@@ -110,19 +110,13 @@
                                                         <div class="me-3 d-flex align-items-center">
                                                             <div class="checkbox-group-wrapper">
                                                                 <div class="checkbox-group d-flex">
-                                                                    <div
-                                                                        class="checkbox-theme-default custom-checkbox checkbox-group__single d-flex">
-                                                                        <input class="checkbox" type="checkbox"
-                                                                            id="check-grp-12">
-                                                                        <label for="check-grp-12"></label>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="orderDatatable-title">
-                                                            <p class="d-block mb-0">
+                                                             <a href="/rooms/{{$room->id}}" class="d-block mb-0">
                                                                 {{ $room->number }}
-                                                            </p>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -235,19 +229,14 @@
                                                         <div class="me-3 d-flex align-items-center">
                                                             <div class="checkbox-group-wrapper">
                                                                 <div class="checkbox-group d-flex">
-                                                                    <div
-                                                                        class="checkbox-theme-default custom-checkbox checkbox-group__single d-flex">
-                                                                        <input class="checkbox" type="checkbox"
-                                                                            id="check-grp-12">
-                                                                        <label for="check-grp-12"></label>
-                                                                    </div>
+ 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="orderDatatable-title">
-                                                            <p class="d-block mb-0">
+                                                             <a href="/rooms/{{$room->id}}" class="d-block mb-0">
                                                                 {{ $room->number }}
-                                                            </p>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -361,19 +350,14 @@
                                                         <div class="me-3 d-flex align-items-center">
                                                             <div class="checkbox-group-wrapper">
                                                                 <div class="checkbox-group d-flex">
-                                                                    <div
-                                                                        class="checkbox-theme-default custom-checkbox checkbox-group__single d-flex">
-                                                                        <input class="checkbox" type="checkbox"
-                                                                            id="check-grp-12">
-                                                                        <label for="check-grp-12"></label>
-                                                                    </div>
+ 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="orderDatatable-title">
-                                                            <p class="d-block mb-0">
+                                                             <a href="/rooms/{{$room->id}}" class="d-block mb-0">
                                                                 {{ $room->number }}
-                                                            </p>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </td>

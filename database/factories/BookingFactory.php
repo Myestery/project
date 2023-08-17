@@ -30,8 +30,8 @@ class BookingFactory extends Factory
             'room_id' => function () {
                 return \App\Models\Room::factory()->create()->id;
             },
-            'check_in' => Carbon::now(),
-            'check_out' => Carbon::now()->addDays(3),
+            'check_in' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
+            'check_out' => $this->faker->dateTimeBetween('+1 week', '+2 week'),
             'total_price' => $this->faker->numberBetween(10_000, 90_000),
             'created_at' => Carbon::now()->subDays($this->faker->numberBetween(1, 100)),
         ];

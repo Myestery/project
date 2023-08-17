@@ -30,21 +30,23 @@
                             <span class="uil uil-user-md"></span>
                         </span>
                         <span class="label">Single Rooms</span>
-                        <span class="data">N{{$total_revenue_from_single}}</span>
+                        <span class="data">N{{ number_format($total_revenue_from_single, 0, '', ',')}}</span>
                     </div>
                     <div class="chart-content__single">
                         <span class="icon color-twitter">
                             <span class="uil uil uil-user-arrows"></span>
                         </span>
                         <span class="label">Double Rooms</span>
-                        <span class="data">N{{$total_revenue_from_double}}</span>
+                        <span class="data">
+                            N{{ number_format($total_revenue_from_double, 0, '', ',')}}
+                        </span>
                     </div>
                     <div class="chart-content__single">
                         <span class="icon color-secondary">
                             <span class="uil uil uil-hospital"></span>
                         </span>
                         <span class="label">Halls</span>
-                        <span class="data">N{{$total_revenue_from_hall}}</span>
+                        <span class="data">N{{ number_format($total_revenue_from_hall, 0, '', ',')}}</span>
                     </div>
                 </div>
             </div>

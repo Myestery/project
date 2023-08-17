@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\User;
 use App\Models\Hotel;
 use App\Models\Booking;
@@ -123,8 +124,8 @@ class HotelsController extends Controller
         $best_selling_rooms = DB::table('bookings')
             ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
             ->where('rooms.hotel_id', '=', $hotel->id)
-            ->select('rooms.number', DB::raw('count(*) as total'),'rooms.image',DB::raw('sum(bookings.total_price) as total_price'))
-            ->groupBy('rooms.number','rooms.image')
+            ->select('rooms.number', DB::raw('count(*) as total'), 'rooms.image', DB::raw('sum(bookings.total_price) as total_price'), 'rooms.id')
+            ->groupBy('rooms.number', 'rooms.image', 'rooms.id')
             ->orderBy('total', 'desc')
             ->limit(5)
             ->get();
@@ -165,7 +166,8 @@ class HotelsController extends Controller
         ));
     }
 
-    public function adminRooms(){
+    public function adminRooms()
+    {
         $title = "View Hotels in Nigeria";
         $hotel = Hotel::first();
         $description = "View Hotels in Nigeria";
@@ -175,13 +177,43 @@ class HotelsController extends Controller
         } else {
             $rooms = $hotel->rooms()->get();
         }
-        $available_rooms = $rooms->filter(function($room){
+        $available_rooms = $rooms->filter(function ($room) {
             return $room->is_available;
         });
-        $booked_rooms = $rooms->filter(function($room){
+        $booked_rooms = $rooms->filter(function ($room) {
             return !$room->is_available;
         });
 
-        return view('real.rooms.admin_list', compact('title', 'description', 'rooms','available_rooms','booked_rooms','search'));
+        return view('real.rooms.admin_list', compact('title', 'description', 'rooms', 'available_rooms', 'booked_rooms', 'search'));
+    }
+
+    public function room(Room $room)
+    {
+        $title = $room->number;
+        $description = $room->number;
+        $hotel  = $room->hotel;
+        $bookings = $room->bookings()->where('check_out', '>=', now())->get();
+        // now from these bookings get all the dates between the check and checkout, save to an array in the format 2023-08-15'
+        $booked_dates = [];
+        foreach ($bookings as $booking) {
+            $check_in = $booking->check_in;
+            $check_out = $booking->check_out;
+            $dates = $this->getDatesFromRange($check_in, $check_out);
+            $booked_dates = array_merge($booked_dates, $dates);
+        }
+        // dd($booked_dates);
+        return view('real.rooms.view', compact('title', 'description', 'room', 'hotel', 'booked_dates'));
+    }
+
+    private function getDatesFromRange($start, $end)
+    {
+        $dates = [];
+        $start = strtotime($start);
+        $end = strtotime($end);
+        while ($start <= $end) {
+            $dates[] = date('Y-m-d', $start);
+            $start = strtotime("+1 day", $start);
+        }
+        return $dates;
     }
 }

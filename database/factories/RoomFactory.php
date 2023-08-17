@@ -27,9 +27,10 @@ class RoomFactory extends Factory
             'https://dcontent.inviacdn.net/shared/img/web-800x600/2020/2/8/d23/24075875-laur-hotels-experience-elegance-ex-didim-beach.jpg'
         ];
         $roomType = $this->faker->randomElement(['Single', 'Double', 'Hall']);
+        $number = $this->faker->numerify('R###');
         return [
             'hotel_id' => $this->faker->numberBetween(1, 10),
-            'number' => $this->faker->numerify('R###'),
+            'number' =>  $number,
             'type' => $roomType,
             'price' => $this->faker->numberBetween(12_000, 500_000),
             'capacity' => match ($roomType) {
@@ -37,7 +38,7 @@ class RoomFactory extends Factory
                 'Double' => 2,
                 'Hall' => $this->faker->numberBetween(10, 100),
             },
-            'description' => $this->faker->sentence,
+            'description' => "Room #{$number} is a {$roomType} room. It is furnished with a {$this->faker->randomElement(['king', 'queen', 'double', 'single'])} bed, a desk, a chair, a TV, a wardrobe, a mini-fridge, and a bathroom with a shower. It is located on the {$this->faker->randomElement(['ground', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'])} floor.",
             'image' => $this->faker->randomElement($images),
             'is_available' => $this->faker->boolean(80), // 80% chance of being available
             'created_at' => now(),
