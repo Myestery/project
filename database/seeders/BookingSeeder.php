@@ -29,5 +29,24 @@ class BookingSeeder extends Seeder
                 ]);
             }
         }
+
+        // ensure bookings for rooms 11, 12 and 13 are booked by user 1
+        Booking::factory()->create([
+            'user_id' => 1,
+            'hotel_id' => 1,
+            'room_id' => 11,
+        ]);
+
+        Booking::factory()->create([
+            'user_id' => 1,
+            'hotel_id' => 1,
+            'room_id' => 12,
+        ]);
+
+        Booking::factory()->create([
+            'user_id' => 1,
+            'hotel_id' => 1,
+            'room_id' => 13,
+        ]);
     }
 }
