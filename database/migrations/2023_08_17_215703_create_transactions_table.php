@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id'); 
             $table->unsignedBigInteger('booking_id')->nullable(); // Assuming a bookings table
+            $table->unsignedBigInteger('hotel_id')->nullable(); // Assuming a hotels table
             $table->unsignedBigInteger('room_id'); // Assuming a rooms table
             $table->decimal('amount', 10, 2);
             $table->string('currency', 3);
@@ -28,6 +29,7 @@ return new class extends Migration
             
             // Foreign key constraints
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('hotel_id')->references('id')->on('hotels');
             $table->foreign('booking_id')->references('id')->on('bookings');
             $table->foreign('room_id')->references('id')->on('rooms');
         });

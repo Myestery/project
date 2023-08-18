@@ -49,6 +49,7 @@ class BookingFactory extends Factory
                 'currency' => 'NGN',
                 'payment_reference' =>$ref,
                 'flw_ref' => $ref, 
+                'Hotel_id' => $booking->hotel_id,
                 'flw_transaction_id' => $this->faker->numberBetween(1000, 9000),
                 'status' => true,
             ]);

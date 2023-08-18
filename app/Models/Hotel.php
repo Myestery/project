@@ -22,4 +22,9 @@ class Hotel extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

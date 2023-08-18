@@ -43,7 +43,7 @@
                                                         src="{{ $booking->room->image }}" alt="Generic placeholder image">
                                                     <div class="media-body">
                                                         <h5 class="mt-0">
-                                                            <a href="{{ route('rooms.view', $booking->room->id) }}">
+                                                            <a href="{{ route('invoice', $booking->id) }}">
                                                                 {{ $booking->room->number }}
                                                             </a>
                                                         </h5>
@@ -54,8 +54,8 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="price">{{ $booking->check_in->diffForHumans() }}</td>
-                                            <td class="price">{{ $booking->check_out->diffForHumans() }}</td>
+                                            <td class="price">{{ $booking->check_in->toDayDateTimeString() }}</td>
+                                            <td class="price">{{ $booking->check_out->toDayDateTimeString() }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="product-cart__badge product-cart__badge--success me-2">

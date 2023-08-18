@@ -112,6 +112,7 @@ class FlutterwaveController extends Controller
                     'status' => true,
                     'flw_transaction_id' => $transactionID,
                     'booking_id' => $booking->id,
+                    'hotel_id' => $booking->hotel_id,
                 ]);
 
             DB::commit();

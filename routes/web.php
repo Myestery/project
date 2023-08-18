@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/rooms/{room}/pay', [FlutterwaveController::class, 'initialize'])->name('pay');
     Route::get('/rooms/{room}/pay/callback', [FlutterwaveController::class, 'callback'])->name('pay.callback');
     Route::get('/invoice/{booking}', [BookingController::class, 'invoice'])->name('invoice');
+    Route::get('/transactions', [BookingController::class, 'transactions'])->name('transactions');
+    Route::get('/search', [HotelsController::class, 'search'])->name('search');
     Route::middleware([IsHotelAdmin::class])->group(function () {
         Route::get('/admin/rooms', [HotelsController::class, 'adminRooms'])->name('admin.rooms');
         Route::get('/dashboard', [HotelsController::class, 'dashboard'])->name('dashboard');

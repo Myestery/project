@@ -48,5 +48,11 @@
                 </a>
             </li>
         @endcan
+        <li>
+            <a href="{{ route('transactions') }}" class="{{ Request::is('/transactions') ? 'active' : '' }}">
+                <span class="nav-icon fa fa-money-check-alt"></span>
+                <span class="menu-text">My Transactions</span>
+            </a>
+        </li>
     </ul>
 </div>

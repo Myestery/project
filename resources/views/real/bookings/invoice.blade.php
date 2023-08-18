@@ -31,9 +31,9 @@
                                 </a>
                             </div>
                             <div class="payment-invoice-address__area">
-                                <address>{{$booking->hotel->name}}<br> {{$booking->hotel->address}}<br>
+                                <address>{{ $booking->hotel->name }}<br> {{ $booking->hotel->address }}<br>
                                     Transaction.
-                                    Id : {{$booking->transaction->flw_transaction_id}}</address>
+                                    Id : {{ $booking->transaction->flw_transaction_id }}</address>
                             </div>
                         </div><!-- End: .payment-invoice-address -->
                         <div class="payment-invoice-qr d-flex justify-content-between mb-40 px-xl-50 px-30 py-sm-30 py-20 ">
@@ -42,20 +42,20 @@
                                     <div class="display-3">
                                         Invoice
                                     </div>
-                                    <p>No : <span>#{{$booking->transaction->payment_reference}}</span></p>
-                                    <p>Date : <span>{{$booking->transaction->created_at}}</span></p>
+                                    <p>No : <span>#{{ $booking->transaction->payment_reference }}</span></p>
+                                    <p>Date : <span>{{ $booking->transaction->created_at }}</span></p>
                                 </div>
                             </div><!-- End: .d-flex -->
                             <div class="d-flex justify-content-center mb-lg-0 mb-25">
                                 <div class="payment-invoice-qr__code bg-white radius-xl p-20">
                                     <img src="{{ asset('assets/img/qr.png') }}" alt="qr">
-                                    <p>{{$booking->transaction->payment_reference}}</p>
+                                    <p>{{ $booking->transaction->payment_reference }}</p>
                                 </div>
                             </div><!-- End: .d-flex -->
                             <div class="d-flex justify-content-center">
                                 <div class="payment-invoice-qr__address">
                                     <p>Invoice To:</p>
-                                    <span>{{auth()->user()->name}}</span><br>
+                                    <span>{{ auth()->user()->name }}</span><br>
                                     {{-- <span>795 Folsom Ave, Suite 600</span><br>
                                     <span>San Francisco, CA 94107, USA</span> --}}
                                 </div>
@@ -68,6 +68,8 @@
                                         <tr class="product-cart__header">
                                             <th scope="col">#</th>
                                             <th scope="col">Room</th>
+                                            <th scope="col">Check in</th>
+                                            <th scope="col">Check out</th>
                                             <th scope="col" class="text-end">Price Per Night</th>
                                             <th scope="col" class="text-end">Days</th>
                                             <th scope="col" class="text-end">Total</th>
@@ -79,19 +81,29 @@
                                             <td class="Product-cart-title">
                                                 <div class="media  align-items-center">
                                                     <div class="media-body">
-                                                        <h5 class="mt-0">{{$booking->room->number}}</h5>
-                                                        
+                                                        <h5 class="mt-0">
+                                                            <a href="{{ route('rooms.view', $booking->room->id) }}">
+                                                                {{ $booking->room->number }}
+                                                            </a>
+                                                        </h5>
+
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="unit text-end">
-                                                N {{number_format($booking->room->price, 2)}}
+                                                {{ $booking->check_in->toDayDateTimeString() }}
+                                            </td>
+                                            <td class="unit text-end">
+                                                {{ $booking->check_out->toDayDateTimeString() }}
+                                            </td>
+                                            <td class="unit text-end">
+                                                N {{ number_format($booking->room->price, 2) }}
                                             </td>
                                             <td class="invoice-quantity text-end">
-                                                {{$booking->days}}
+                                                {{ $booking->days }}
                                             </td>
                                             <td class="text-end order">
-                                                N {{number_format($booking->room->price * $booking->days, 2)}}
+                                                N {{ number_format($booking->room->price * $booking->days, 2) }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -99,7 +111,7 @@
                                         <tr>
                                             <td colspan="3"></td>
                                             <td class="order-summery float-right border-0   ">
-                                              
+
                                                 <div class="total-money mt-2 text-end">
                                                     <h6>Total :</h6>
                                                 </div>
@@ -107,9 +119,9 @@
 
                                             <td>
                                                 <div class="total-order float-right text-end fs-14 fw-500">
-                                                   
+
                                                     <h5 class="text-primary">
-                                                        N {{number_format($booking->room->price * $booking->days, 2)}}
+                                                        N {{ number_format($booking->room->price * $booking->days, 2) }}
                                                     </h5>
                                                 </div>
                                             </td>

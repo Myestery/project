@@ -234,4 +234,13 @@ class HotelsController extends Controller
         }
         return $dates;
     }
+
+    public function search(Request $request)
+    {
+        $title = "Search for Hotels";
+        $description = "Search for Hotels";
+        $search = $request->input('search');
+        $hotels = Hotel::where('name', 'LIKE', "%{$search}%")->orWhere('address', 'LIKE', "%{$search}%")->get();
+        return view('real.hotels.search_results', compact('title', 'description', 'hotels', 'search'));
+    }
 }
