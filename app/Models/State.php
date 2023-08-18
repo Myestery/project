@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class State extends Model
 {
     use HasFactory;
+
+    public function hotels()
+    {
+        return $this->hasMany(Hotel::class);
+    }
 }

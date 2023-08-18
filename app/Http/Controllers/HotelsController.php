@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Hotel;
 use App\Models\Booking;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,12 +18,52 @@ class HotelsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $min_price = $request->input('min_price') ?? 0;
+        $max_price = $request->input('max_price') ?? 100000;
+        $selected_states = $request->input('states') ?? [];
+        $selected_ratings = $request->input('ratings') ?? [];
+        $search = $request->input('search') ?? '';
+
         $title = "View Hotels in Nigeria";
         $description = "View Hotels in Nigeria";
-        $hotels = Hotel::paginate();
-        return view('real.home', compact('title', 'description', 'hotels'));
+        $hotels = Hotel::where('min_price', '>=', $min_price)
+            ->where('max_price', '<=', $max_price)
+            ->where('name', 'LIKE', "%{$search}%")
+            ->when(count($selected_states) > 0, function ($query) use ($selected_states) {
+                return $query->whereIn('state_id', $selected_states);
+            })
+            ->when(count($selected_ratings) > 0, function ($query) use ($selected_ratings) {
+                return $query->where('rating','>=', min($selected_ratings));
+            })
+            ->paginate();
+        $states = State::withCount('hotels')->get();
+
+        // get hotels by grouping the rating, above 4, above 3, above 2, above 1
+        $hotels_with_5 = Hotel::where('rating', 5)->count();
+        $hotels_above_4 = Hotel::where('rating', '>=', 4)->count();
+        $hotels_above_3 = Hotel::where('rating', '>=', 3)->count();
+        $hotels_above_2 = Hotel::where('rating', '>=', 2)->count();
+        $hotels_above_1 = Hotel::where('rating', '>=', 1)->count();
+        return view('real.home', compact(
+            'title',
+            'description',
+            'hotels',
+            'states',
+            'hotels_with_5',
+            'hotels_above_4',
+            'hotels_above_3',
+            'hotels_above_2',
+            'hotels_above_1',
+
+            // search params
+            'min_price',
+            'max_price',
+            'selected_states',
+            'selected_ratings',
+            'search'
+        ));
     }
 
     public function view(Hotel $hotel)
@@ -40,7 +81,7 @@ class HotelsController extends Controller
         $hotel = auth()->user()->hotel;
         $title = $hotel->name;
         $description = $hotel->name;
-        $rooms = $hotel->rooms()->paginate(); 
+        $rooms = $hotel->rooms()->paginate();
         // stats
         $total_sales = $hotel->bookings()->sum('total_price');
         $total_bookings = $hotel->bookings()->count();

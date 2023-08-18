@@ -10,12 +10,7 @@
                         <h4 class="text-capitalize breadcrumb-title">Find Hotels</h4>
                         <div class="breadcrumb-action justify-content-center flex-wrap">
                             <nav aria-label="breadcrumb">
-                                {{-- <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#"><i
-                                                class="las la-home"></i>{{ trans('menu.dashboard-menu-title') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        {{ trans('menu.ecommerce-products') }}</li>
-                                </ol> --}}
+
                             </nav>
                         </div>
                     </div>
@@ -32,15 +27,10 @@
                                 <div class="job-search">
                                     <img src="{{ asset('assets/img/svg/search.svg') }}" alt="search" class="svg">
                                     <input class="form-control border-0 box-shadow-none" type="search"
-                                        placeholder="eg Hotel Trivago" aria-label="Search">
+                                        placeholder="eg Hotel Trivago" aria-label="Search" name="search" value="{{$search}}">
                                 </div>
-                                {{-- <div class="location-search">
-                                    <img src="{{ asset('assets/img/svg/map-pin.svg') }}" alt="map-pin" class="svg">
-                                    <input class="form-control border-0 box-shadow-none" type="search"
-                                        placeholder="Location" aria-label="Search">
-                                </div> --}}
                                 <button class="btn btn-primary"><img src="{{ asset('assets/img/svg/search.svg') }}"
-                                        alt="search" class="svg">search</button>
+                                        alt="search" type="submit" class="svg">search</button>
                             </form>
                         </div>
 
@@ -61,7 +51,7 @@
                                 <img src="{{ asset('assets/img/svg/sliders.svg') }}" alt="sliders" class="svg"> Filters
                             </h6>
                         </div>
-                        <div class="category_sidebar">
+                        <form action="/" class="category_sidebar">
                             <!-- Start: Aside -->
                             <aside class="product-sidebar-widget mb-30">
                                 <!-- Title -->
@@ -74,6 +64,8 @@
                                     <div class="product-price-ranges">
                                         <div id="price-range" class="mb-0">
                                             <div class="section price">
+                                                <input type="hidden" name="min_price" value="{{ $min_price }}" />
+                                                <input type="hidden" name="max_price" value="{{ $max_price }}" />
                                                 <div class="price-slider"></div>
                                                 <p class="price-value"></p>
                                             </div>
@@ -89,7 +81,7 @@
                                 <!-- Title -->
                                 <div class="widget_title" data-bs-toggle="collapse" href="#multiCollapseExample3"
                                     role="button" aria-expanded="true">
-                                    <h6>Brands</h6>
+                                    <h6>States</h6>
                                 </div>
                                 <!-- Title -->
                                 <!-- Body -->
@@ -97,101 +89,29 @@
                                     id="multiCollapseExample3">
                                     <div class="product-brands limit-list-item">
                                         <ul>
-                                            <li>
+                                            @foreach ($states as $state)
+                                                <li>
 
-                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="check-1">
-                                                    <label for="check-1">
-                                                        <span class="checkbox-text">
-                                                            Appliances
+                                                    <div class="checkbox-theme-default custom-checkbox ">
+                                                        <input class="checkbox" type="checkbox"
+                                                            id="check-{{ $state->id }}" name="states[]"
+                                                            value="{{ $state->id }}"
+                                                            {{ in_array($state->id, $selected_states) ? 'checked' : '' }}>
+                                                        <label for="check-{{ $state->id }}">
+                                                            <span class="checkbox-text">
+                                                                {{ $state->name }}
 
-                                                            <span class="item-numbers">25</span>
+                                                                <span
+                                                                    class="item-numbers">{{ $state->hotels_count }}</span>
 
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-
-                                            </li>
-                                            <li>
-
-                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="check-2">
-                                                    <label for="check-2">
-                                                        <span class="checkbox-text">
-                                                            Bags
-
-                                                            <span class="item-numbers">54</span>
-
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                            </li>
-                                            <li>
-
-                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="check-3">
-                                                    <label for="check-3">
-                                                        <span class="checkbox-text">
-                                                            Electronic
-
-                                                            <span class="item-numbers">78</span>
-
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                                            </span>
+                                                        </label>
+                                                    </div>
 
 
-                                            </li>
-                                            <li>
+                                                </li>
+                                            @endforeach
 
-                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="check-4">
-                                                    <label for="check-4">
-                                                        <span class="checkbox-text">
-                                                            Entertainment
-
-                                                            <span class="item-numbers">42</span>
-
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-
-                                            </li>
-                                            <li>
-
-                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="check-5">
-                                                    <label for="check-5">
-                                                        <span class="checkbox-text">
-                                                            Induction
-
-                                                            <span class="item-numbers">35</span>
-
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-
-                                            </li>
-                                            <li>
-
-                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="check-6">
-                                                    <label for="check-6">
-                                                        <span class="checkbox-text">
-                                                            Laptops
-
-                                                            <span class="item-numbers">64</span>
-
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -215,7 +135,9 @@
                                         <ul>
                                             <li>
                                                 <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="product-1">
+                                                    <input class="checkbox" type="checkbox" id="product-1" name="ratings[]"
+                                                        value="5"
+                                                        {{ in_array(5, $selected_ratings) ? 'checked' : '' }}>
                                                     <label for="product-1">
 
                                                         <span class="stars-rating d-flex align-items-center">
@@ -225,8 +147,9 @@
                                                             <span class="star-icon las la-star active"></span>
                                                             <span class="star-icon las la-star active"></span>
                                                             <span class="checkbox-text">
-                                                                and up
-                                                                <span class="item-numbers">42</span>
+                                                                <span class="item-numbers">
+                                                                    {{ $hotels_with_5 }}
+                                                                </span>
                                                             </span>
                                                         </span>
 
@@ -235,7 +158,9 @@
                                             </li>
                                             <li>
                                                 <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="product-3">
+                                                    <input class="checkbox" type="checkbox" id="product-3"
+                                                        name="ratings[]" value="4"
+                                                        {{ in_array(4, $selected_ratings) ? 'checked' : '' }}>
                                                     <label for="product-3">
 
                                                         <span class="stars-rating d-flex align-items-center">
@@ -246,7 +171,9 @@
                                                             <span class="star-icon las la-star inactive"></span>
                                                             <span class="checkbox-text">
                                                                 and up
-                                                                <span class="item-numbers">54</span>
+                                                                <span class="item-numbers">
+                                                                    {{ $hotels_above_4 }}
+                                                                </span>
                                                             </span>
                                                         </span>
 
@@ -255,7 +182,9 @@
                                             </li>
                                             <li>
                                                 <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="product-4">
+                                                    <input class="checkbox" type="checkbox" id="product-4"
+                                                        name="ratings[]" value="3"
+                                                        {{ in_array(3, $selected_ratings) ? 'checked' : '' }}>
                                                     <label for="product-4">
 
                                                         <span class="stars-rating d-flex align-items-center">
@@ -266,7 +195,9 @@
                                                             <span class="star-icon las la-star inactive"></span>
                                                             <span class="checkbox-text">
                                                                 and up
-                                                                <span class="item-numbers">78</span>
+                                                                <span class="item-numbers">
+                                                                    {{ $hotels_above_3 }}
+                                                                </span>
                                                             </span>
                                                         </span>
 
@@ -275,7 +206,9 @@
                                             </li>
                                             <li>
                                                 <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="product-5">
+                                                    <input class="checkbox" type="checkbox" id="product-5"
+                                                        name="ratings[]" value="2"
+                                                        {{ in_array(2, $selected_ratings) ? 'checked' : '' }}>
                                                     <label for="product-5">
 
                                                         <span class="stars-rating d-flex align-items-center">
@@ -286,7 +219,9 @@
                                                             <span class="star-icon las la-star inactive"></span>
                                                             <span class="checkbox-text">
                                                                 and up
-                                                                <span class="item-numbers">42</span>
+                                                                <span class="item-numbers">
+                                                                    {{ $hotels_above_2 }}
+                                                                </span>
                                                             </span>
                                                         </span>
 
@@ -295,7 +230,9 @@
                                             </li>
                                             <li>
                                                 <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="product-6">
+                                                    <input class="checkbox" type="checkbox" id="product-6"
+                                                        name="ratings[]" value="1"
+                                                        {{ in_array(1, $selected_ratings) ? 'checked' : 'unchecked' }}>
                                                     <label for="product-6">
 
                                                         <span class="stars-rating d-flex align-items-center">
@@ -306,7 +243,9 @@
                                                             <span class="star-icon las la-star inactive"></span>
                                                             <span class="checkbox-text">
                                                                 and up
-                                                                <span class="item-numbers">35</span>
+                                                                <span class="item-numbers">
+                                                                    {{ $hotels_above_1 }}
+                                                                </span>
                                                             </span>
                                                         </span>
 
@@ -318,17 +257,19 @@
                                 </div>
                                 <!-- Body -->
                             </aside>
+
+                            <button type="submit" class="btn btn-primary btn-default btn-squared border-0 mt-10">Filter
+                            </button>
                             <!-- End: Aside -->
-                        </div>
-                        <button class="btn btn-primary btn-default btn-squared border-0 ms-0">Filter
-                        </button>
+                        </form>
+
                     </div><!-- End: .widget -->
                 </div><!-- End: .columns-1 -->
                 <div class="columns-2 col-lg-12">
                     <!-- Start: Top Bar -->
                     <div class="shop_products_top_filter">
                         <div class="project-top-wrapper d-flex flex-wrap align-items-center">
-                            
+
                         </div>
                     </div>
                     <!-- End: Top Bar -->
@@ -398,10 +339,8 @@
 
 
 
-                                                        <a
-                                                            class="btn btn-default btn-squared color-light btn-outline-light ms-lg-0 ms-0 me-2 mb-lg-10"
-                                                            href={{"/hotels/$hotel->id"}}
-                                                            >
+                                                        <a class="btn btn-default btn-squared color-light btn-outline-light ms-lg-0 ms-0 me-2 mb-lg-10"
+                                                            href={{ "/hotels/$hotel->id" }}>
                                                             Browse Rooms
                                                         </a>
 
@@ -414,6 +353,15 @@
 
                             </div>
                         @endforeach
+
+                        @if (count($hotels) == 0)
+                            <div class="error-page text-center">
+                                <img src="{{ asset('assets/img/svg/404.svg') }}" alt="404" class="svg">
+                                <div class="error-page__title">404</div>
+                                <h5 class="fw-500">No Hotels matched your search.</h5>
+
+                            </div>
+                        @endif
 
                     </div>
                     <!-- End: Shop Item -->
@@ -442,4 +390,29 @@
         </div>
     </div>
     <!-- End: .products -->
+@endsection
+@section('scripts')
+    <script>
+        $(".price-slider").slider({
+            range: !0,
+            min: 0,
+            max: 10000,
+            values: [{{ $min_price }}, {{ $max_price }}],
+            slide: function(t, s) {
+                $(".price-value").text(
+                    "N" + s.values[0] + " - N" + s.values[1]
+                )
+                $(".job-value").text(s.values[0] + " miles"),
+                    $(".job-value2").text(s.values[1] + " miles");
+                $("input[name='min_price']").val(s.values[0])
+                $("input[name='max_price']").val(s.values[1])
+            },
+        });
+        $(".price-value").text(
+            "N" +
+            $(".price-slider").slider("values", 0) +
+            " - N" +
+            $(".price-slider").slider("values", 1)
+        );
+    </script>
 @endsection

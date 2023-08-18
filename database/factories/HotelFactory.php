@@ -34,8 +34,8 @@ class HotelFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->safeEmail,
             'rating' => $this->faker->randomFloat(1, 0, 5),
-            'min_price' => $this->faker->numberBetween(1000, 10000),
-            'max_price' => $this->faker->numberBetween(10000, 100000),
+            'min_price' => $this->faker->numberBetween(1000, 3000),
+            'max_price' => $this->faker->numberBetween(3000, 8000),
             'website' => $this->faker->url(),
             'images' => [
                 $this->faker->randomElement($images),
