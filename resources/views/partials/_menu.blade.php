@@ -32,21 +32,6 @@
                     <span class="menu-text">View Rooms</span>
                 </a>
             </li>
-            <li>
-                <a href="/calendar"
-                    class="{{ Request::is(app()->getLocale() . '/applications/calendar') ? 'active' : '' }}">
-                    <span class="nav-icon uil uil-calendar-alt"></span>
-                    <span class="menu-text">Calendar View</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="/calendar"
-                    class="{{ Request::is(app()->getLocale() . '/applications/calendar') ? 'active' : '' }}">
-                    <span class="nav-icon uil uil-calendar-alt"></span>
-                    <span class="menu-text">Expiring Reservations</span>
-                </a>
-            </li>
         @endcan
         <li>
             <a href="{{ route('transactions') }}" class="{{ Request::is('/transactions') ? 'active' : '' }}">
