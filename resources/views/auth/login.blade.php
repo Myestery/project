@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $title }} - HexaDash</title>
+    <title>{{ $title }} - Hotelly</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/plugin.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
@@ -20,13 +20,13 @@
                     <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-8">
                         <div class="edit-profile">
                             <div class="edit-profile__logos">
-                                <img class="dark" src="{{ asset('assets/img/logo-dark.png') }}" alt="">
-                                <img class="light" src="{{ asset('assets/img/logo-white.png') }}" alt="">
+                                <img class="dark" src="{{ asset('assets/img/logo.png') }}" alt="">
+                                <img class="light" src="{{ asset('assets/img/logo.png') }}" alt="">
                             </div>
                             <div class="card border-0">
                                 <div class="card-header">
                                     <div class="edit-profile__title">
-                                        <h6>Sign in HexaDash</h6>
+                                        <h6>Sign in Hotelly</h6>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -66,35 +66,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="px-20">
-                                    <p class="social-connector social-connector__admin text-center">
-                                        <span>Or</span>
-                                    </p>
-                                    <div class="button-group d-flex align-items-center justify-content-center">
-                                        <ul class="admin-socialBtn">
-                                            <li>
-                                                <button class="btn text-dark google">
-                                                    <img class="svg" src="{{ asset('assets/img/google-Icon.svg') }}" alt="img" />
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class=" radius-md wh-48 content-center facebook">
-                                                    <i class="uil uil-facebook-f"></i>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="radius-md wh-48 content-center twitter">
-                                                    <i class="uil uil-twitter"></i>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="radius-md wh-48 content-center github">
-                                                    <i class="uil uil-github"></i>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                                 <div class="admin-topbar">
                                     <p class="mb-0">

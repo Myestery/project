@@ -297,7 +297,9 @@
                                                             {{ $hotel->name }}
                                                         </h6>
                                                     </a>
-                                                    <p class="mb-0">{{ $hotel->description }}
+                                                    <p class="mb-0">{{ $hotel->address }}
+                                                    </p>
+                                                    <p class="mb-0">{{ $hotel->state->name }}
                                                     </p>
                                                 </div>
                                                 <div class="product-item__content text-capitalize">

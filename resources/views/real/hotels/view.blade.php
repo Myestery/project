@@ -121,6 +121,7 @@
                                     <p>Address:</p>
                                     <span class="free">{{ $hotel->address }}</span>
                                 </div>
+                                <p class="free">{{ $hotel->state->name }} state</p>
                             </div>
                         </div>
                     </div>
