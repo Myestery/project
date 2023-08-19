@@ -8,7 +8,7 @@
                 <div class="shop-breadcrumb">
 
                     <div class="breadcrumb-main">
-                        <h4 class="text-capitalize breadcrumb-title">Invoice for {{ $booking->room->number }}</h4>
+                        <h4 class="text-capitalize breadcrumb-title">Receipt for {{ $booking->room->number }}</h4>
                         <div class="breadcrumb-action justify-content-center flex-wrap">
 
                         </div>
@@ -40,7 +40,7 @@
                             <div class="d-flex justify-content-center mb-lg-0 mb-25">
                                 <div class="payment-invoice-qr__number">
                                     <div class="display-3">
-                                        Invoice
+                                        Receipt
                                     </div>
                                     <p>No : <span>#{{ $booking->transaction->payment_reference }}</span></p>
                                     <p>Date : <span>{{ $booking->transaction->created_at }}</span></p>

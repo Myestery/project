@@ -35,7 +35,7 @@
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
                                                 <label for="email">Username Or Email Address</label>
-                                                <input type="text" class="form-control" id="email" name="email" value="admin@gmail.com" placeholder="Email address">
+                                                <input type="text" class="form-control" id="email" name="email" value="test@example.org" placeholder="Email address">
                                                 @if($errors->has('email'))
                                                     <p class="text-danger">{{$errors->first('email')}}</p>
                                                 @endif
@@ -43,7 +43,7 @@
                                             <div class="form-group mb-15">
                                                 <label for="password-field">password</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password" value="admin">
+                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password" value="password">
                                                     <span toggle="#password-field" class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
                                                 </div>
                                                 @if($errors->has('password'))
