@@ -27,7 +27,8 @@
                                 <div class="job-search">
                                     <img src="{{ asset('assets/img/svg/search.svg') }}" alt="search" class="svg">
                                     <input class="form-control border-0 box-shadow-none" type="search"
-                                        placeholder="eg Hotel Trivago" aria-label="Search" name="search" value="{{$search}}">
+                                        placeholder="eg Hotel Trivago" aria-label="Search" name="search"
+                                        value="{{ $search }}">
                                 </div>
                                 <button class="btn btn-primary"><img src="{{ asset('assets/img/svg/search.svg') }}"
                                         alt="search" type="submit" class="svg">search</button>
