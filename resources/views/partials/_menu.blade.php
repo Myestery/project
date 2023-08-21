@@ -20,7 +20,7 @@
         <li>
             <a href="{{ route('transactions') }}" class="{{ Request::is('/transactions') ? 'active' : '' }}">
                 <span class="nav-icon fa fa-money-check-alt"></span>
-                <span class="menu-text">My Transactions</span>
+                <span class="menu-text"> Transactions</span>
             </a>
         </li>
         @can('can-manage-hotels')

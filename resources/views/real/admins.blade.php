@@ -19,7 +19,7 @@
 
                         </div>
                         <div class="action-btn">
-                            <a href="/admins/add" class="btn px-15 btn-primary">
+                            <a href="/admins/create" class="btn px-15 btn-primary">
                                 <i class="las la-plus fs-16"></i>Add New
                             </a>
 

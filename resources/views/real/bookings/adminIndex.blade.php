@@ -18,6 +18,75 @@
             </div>
         </div>
     </div>
+    <div class="action-btn">
+        <a href="#" class="btn px-15 btn-primary" data-bs-toggle="modal" data-bs-target="#add-contact">
+            <i class="las la-plus fs-16"></i>Add New
+        </a>
+    </div>
+    <div class="modal fade add-contact" id="add-contact" role="dialog" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content radius-xl">
+                <div class="modal-header">
+                    <h6 class="modal-title fw-500" id="staticBackdropLabel">Add Manual Booking</h6>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="uil uil-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="add-new-contact">
+                        <form action="/bookings/create" method="POST">
+                            <div class="form-group mb-20">
+                                <label>Room:</label>
+                                <select class="form-control ih-medium ip-gray radius-xs b-light px-15" name="room_id"
+                                    id="user">
+                                    <option disabled>Choose Room</option>
+                                    @foreach ($rooms as $room)
+                                        <option value="{{ $room->id }}">{{ $room->number }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-20">
+                                <label>Check In date:</label>
+                                <input type="date" name="checkIn" class="form-control form-control-lg" placeholder="Date"
+                                    required min="{{ now()->format('Y-m-d') }}">
+                            </div>
+
+                            <div class="form-group mb-20">
+                                <label>Check Out date:</label>
+                                <input type="date" name="checkOut" class="form-control form-control-lg"
+                                    placeholder="Date" required min="{{ now()->format('Y-m-d') }}">
+                            </div>
+                            <div class="form-group mb-20">
+                                <label>Customer:</label>
+                                <select class="form-control ih-medium ip-gray radius-xs b-light px-15" name="user_id"
+                                    id="user">
+                                    <option disabled>Choose Customer</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @csrf
+                            <div class="form-group mb-20">
+                                <label>Reference:</label>
+                                <input type="text" name="reference" class="form-control form-control-lg"
+                                    placeholder="Reference" required>
+                            </div>
+
+                            <div class="button-group d-flex pt-20">
+                                <button type="submit" class="btn btn-primary btn-default btn-squared "> Add Booking
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="cartPage global-shadow pe-sm-30 ps-sm-30  p-15 py-sm-30 radius-xl w-100 mb-30">
             <div class="row justify-content-center">
