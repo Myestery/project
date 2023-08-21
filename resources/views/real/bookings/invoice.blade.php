@@ -133,6 +133,13 @@
                                 <button type="button" class="btn border rounded-pill bg-normal text-gray px-25 print-btn">
                                     <img src="{{ asset('assets/img/svg/printer.svg') }}" alt="printer"
                                         class="svg">print</button>
+                                <form method="POST" action="/bookings/{{$booking->id}}/cancel">
+                                    @csrf
+                                    
+                                    <button type="submit" class="btn border rounded-pill bg-danger text-white px-25">
+                                        <img src="{{ asset('assets/img/svg/trash-2.svg') }}" alt="send"
+                                            class="svg">Cancel</button>
+                                </form>
                             </div>
                         </div><!-- End: .payment-invoice-table -->
                     </div><!-- End: .payment-invoice__body -->

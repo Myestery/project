@@ -37,4 +37,16 @@ class BookingController extends Controller
         $transactions = $isHotel ? $hotel?->transactions()->latest()->get() : $user->transactions()->latest()->get();
         return view('real.bookings.transactions', compact('title', 'description', 'transactions', 'isHotel'));
     }
+
+    public function cancel(Booking $booking)
+    {
+        $user = Auth::user();
+        if ($booking->user_id !== $user->id) abort(403);
+        // if the booking check in isnt up to in 12 hours, dont cancel
+        if ($booking->check_in->diffInHours(now()) < 12) {
+           abort(403, 'You cannot cancel this booking, check in is less than 12 hours from now');
+        }
+        $booking->delete();
+        return redirect('/bookings')->with('success', 'Booking cancelled successfully');
+    }
 }

@@ -1,4 +1,5 @@
 @include('partials._header')
+
 <body class="layout-light side-menu">
     <div class="mobile-search">
         <form action="/" class="search-form">
@@ -22,6 +23,26 @@
         <footer class="footer-wrapper">
             @include('partials._footer')
         </footer>
+
+        @isset($success)
+            <div class=" alert alert-success  alert-dismissible fade show " role="alert">
+
+
+                <div class="alert-content">
+
+
+                    <p>{{ $success }}</p>
+
+
+                    <button type="button" class="btn-close text-capitalize" data-bs-dismiss="alert" aria-label="Close">
+
+                        <img src="{{ asset('assets/img/svg/x.svg') }}" alt="x" class="svg" aria-hidden="true">
+
+                    </button>
+
+                </div>
+            </div>
+        @endisset
     </main>
     <div id="overlayer">
         <span class="loader-overlay">
@@ -36,6 +57,7 @@
     <div class="overlay-dark-sidebar"></div>
     <div class="customizer-overlay"></div>
     <div class="customizer-wrapper">
+
         @include('partials._customizer')
     </div>
 
@@ -55,4 +77,5 @@
     @yield('scripts2')
 
 </body>
+
 </html>

@@ -7,11 +7,7 @@
         </div>
         <div class="col-md-6">
             <div class="footer-menu text-end">
-                <ul>
-                    {{-- <li><a href="#">About</a></li>
-                    <li><a href="#">Team</a></li>
-                    <li><a href="#">Contact</a></li> --}}
-                </ul>
+                Have a question or feedback? <a href="mailto:johnpaul.chiwetalu.241660@unn.edu.ng">Contact us</a>
             </div>
         </div>
     </div>
