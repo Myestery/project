@@ -18,6 +18,16 @@ class BookingController extends Controller
         return view('real.bookings.index', compact('title', 'description', 'bookings'));
     }
 
+    public function adminIndex()
+    {
+        $user = Auth::user();
+        $hotel = $user->hotel;
+        $title = "Bookings for {$hotel->name}";
+        $description = "Bookings for {$hotel->name}";
+        $bookings = $hotel->bookings()->with(['room'])->latest()->paginate();
+        return view('real.bookings.adminIndex', compact('title', 'description', 'bookings'));
+    }
+
     public function invoice(Booking $booking)
     {
         $user = Auth::user();
@@ -27,10 +37,20 @@ class BookingController extends Controller
         return view('real.bookings.invoice', compact('title', 'description', 'booking'));
     }
 
+    public function adminInvoice(Booking $booking)
+    {
+        $user = Auth::user();
+        $hotel = $user->hotel;
+        if ($booking->hotel_id !== $hotel->id) abort(403);
+        $title = "Invoice for {$hotel->name}";
+        $description = "Invoice for {$hotel->name}";
+        return view('real.bookings.adminInvoice', compact('title', 'description', 'booking'));
+    }
+
     public function transactions()
     {
         $user = Auth::user();
-        $isHotel = $user->hotel_id !== null;
+        $isHotel = $user->hotel !== null;
         $hotel = $user->hotel;
         $title = $isHotel ? "Transactions for {$hotel?->name}" : "Transactions for {$user?->name}";
         $description = $isHotel ? "Transactions for {$hotel?->name}" : "Transactions for {$user?->name}";

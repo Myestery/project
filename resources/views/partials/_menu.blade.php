@@ -9,10 +9,18 @@
         <li class="menu-title mt-30">
             <span>Bookings And Reservations</span>
         </li>
+        @cannot('can-manage-hotels')
+            <li>
+                <a href="{{ route('bookings') }}" class="{{ Request::is('/bookings') ? 'active' : '' }}">
+                    <span class="nav-icon uil uil-bookmark"></span>
+                    <span class="menu-text">My Bookings</span>
+                </a>
+            </li>
+        @endcannot
         <li>
-            <a href="{{ route('bookings') }}" class="{{ Request::is('/bookings') ? 'active' : '' }}">
-                <span class="nav-icon uil uil-bookmark"></span>
-                <span class="menu-text">My Bookings</span>
+            <a href="{{ route('transactions') }}" class="{{ Request::is('/transactions') ? 'active' : '' }}">
+                <span class="nav-icon fa fa-money-check-alt"></span>
+                <span class="menu-text">My Transactions</span>
             </a>
         </li>
         @can('can-manage-hotels')
@@ -33,12 +41,16 @@
                 </a>
             </li>
         @endcan
-        <li>
-            <a href="{{ route('transactions') }}" class="{{ Request::is('/transactions') ? 'active' : '' }}">
-                <span class="nav-icon fa fa-money-check-alt"></span>
-                <span class="menu-text">My Transactions</span>
-            </a>
-        </li>
+
+        @can('can-manage-hotels')
+            <li>
+                <a href="{{ route('admin.bookings') }}" class="{{ Request::is('/admin/bookings') ? 'active' : '' }}">
+                    <span class="nav-icon uil uil-bookmark"></span>
+                    <span class="menu-text">Hotel Bookings</span>
+                </a>
+            </li>
+        @endcannot
+
 
         @can('can-manage-hotels')
             <li class="menu-title mt-30">

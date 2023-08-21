@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', [HotelsController::class, 'search'])->name('search');
     Route::middleware([IsHotelAdmin::class])->group(function () {
         Route::get('/admin/rooms', [HotelsController::class, 'adminRooms'])->name('admin.rooms');
+        Route::get('/admin/bookings', [BookingController::class, 'adminIndex'])->name('admin.bookings');
+        Route::get('/admin/invoice/{booking}', [BookingController::class, 'adminInvoice'])->name('admin.invoice');
         Route::get('/admins', [HotelsController::class, 'admins'])->name('admins');
         Route::get('/admins/create', [HotelsController::class, 'createStaff'])->name('admin.create');
         Route::post('/admins/create', [HotelsController::class, 'addStaff'])->name('admin.store');
