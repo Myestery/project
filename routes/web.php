@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::get('/register-hotel', [AuthController::class, 'registerHotel'])->name('register-hotel');
     Route::get('/forget-password', [AuthController::class, 'forgetPassword'])->name('forget_password');
     Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
     Route::post('/signup', [AuthController::class, 'signup'])->name('signup');

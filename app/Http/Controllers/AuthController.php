@@ -34,6 +34,13 @@ class AuthController extends Controller
         return view('auth.register', compact('title', 'description'));
     }
 
+    public function registerHotel()
+    {
+        $title = "Register Hotel";
+        $description = "Some description for the page";
+        return view('auth.register-hotel', compact('title', 'description'));
+    }
+
     /**
      * Display forget password of the resource.
      *
@@ -67,7 +74,7 @@ class AuthController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
             auth()->login($user);
-            return redirect()->intended(route('dashboard.demo_one', 'en'))->with('message', 'Registration was successfull !');
+            return redirect()->route('index')->with('message', 'Successfully Registered !');
         }
     }
 

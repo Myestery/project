@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $title }} - Hotelly</title>
+    <title>{{ $title }} - HexaDash</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/plugin.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
@@ -35,14 +35,14 @@
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
                                                 <label for="name">name</label>
-                                                <input type="text" class="form-control" name="name" id="name" placeholder="Full Name" required>
+                                                <input type="text" class="form-control" name="name" id="name" placeholder="Full Name">
                                                 @if($errors->has('name'))
                                                   <p class="text-danger">{{ $errors->first('name') }}</p>
                                                 @endif
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="email">Email Adress</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email address">
                                                 @if($errors->has('email'))
                                                   <p class="text-danger">{{ $errors->first('email') }}</p>
                                                 @endif
@@ -50,12 +50,24 @@
                                             <div class="form-group mb-15">
                                                 <label for="password-field">password</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password" required>
+                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password">
                                                     <span toggle="#password-field" class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
                                                 </div>
                                                 @if($errors->has('password'))
                                                   <p class="text-danger">{{ $errors->first('password') }}</p>
                                                 @endif
+                                            </div>
+                                            <div class="admin-condition">
+                                                <div class="checkbox-theme-default custom-checkbox ">
+                                                    <input class="checkbox" type="checkbox" id="check-1">
+                                                    <label for="check-1">
+                                                        <span class="checkbox-text">Creating an account means you’re okay
+                                                            with our <a href="#" class="color-primary">Terms of
+                                                                Service</a> and <a href="#" class="color-primary">Privacy
+                                                                Policy</a>
+                                                            my preference</span>
+                                                    </label>
+                                                </div>
                                             </div>
                                             <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                                 <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
