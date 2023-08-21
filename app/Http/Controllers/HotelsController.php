@@ -180,9 +180,9 @@ class HotelsController extends Controller
             ->where('rooms.hotel_id', '=', $hotel->id)
             ->sum('bookings.total_price');
 
-        $percentage_from_single = ($total_revenue_from_single / $total_sales) * 100;
-        $percentage_from_double = ($total_revenue_from_double / $total_sales) * 100;
-        $percentage_from_hall = ($total_revenue_from_hall / $total_sales) * 100;
+        $percentage_from_single = ($total_revenue_from_single / max($total_sales, 1)) * 100;
+        $percentage_from_double = ($total_revenue_from_double / max($total_sales, 1)) * 100;
+        $percentage_from_hall = ($total_revenue_from_hall / max($total_sales, 1)) * 100;
 
         // best selling rooms
         $best_selling_rooms = DB::table('bookings')
@@ -236,7 +236,7 @@ class HotelsController extends Controller
     public function adminRooms()
     {
         $title = "View Hotels in Nigeria";
-        $hotel = Hotel::first();
+        $hotel = auth()->user()->hotel;
         $description = "View Hotels in Nigeria";
         $search = request()->query('search');
         if ($search) {

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.0/css/line.css">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon.png') }}">
 </head>
+
 <body>
     <main class="main-content">
         <div class="admin" style="background-image:url({{ asset('assets/img/admin-bg-light.png') }});">
@@ -26,51 +28,71 @@
                             <div class="card border-0">
                                 <div class="card-header">
                                     <div class="edit-profile__title">
-                                        <h6>Sign Up Hotelly</h6>
+                                        <h6>Sign Up For your Hotel</h6>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{ route('signup') }}" method="POST">
+                                    <form action="{{ route('signup-hotel') }}" method="POST">
                                         @csrf
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
                                                 <label for="name">name</label>
-                                                <input type="text" class="form-control" name="name" id="name" placeholder="Full Name">
-                                                @if($errors->has('name'))
-                                                  <p class="text-danger">{{ $errors->first('name') }}</p>
+                                                <input required type="text" class="form-control" name="name"
+                                                    id="name" placeholder="Full Name">
+                                                @if ($errors->has('name'))
+                                                    <p class="text-danger">{{ $errors->first('name') }}</p>
                                                 @endif
                                             </div>
                                             <div class="form-group mb-20">
                                                 <label for="email">Email Adress</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email address">
-                                                @if($errors->has('email'))
-                                                  <p class="text-danger">{{ $errors->first('email') }}</p>
+                                                <input required type="text" class="form-control" id="email"
+                                                    name="email" placeholder="Email address">
+                                                @if ($errors->has('email'))
+                                                    <p class="text-danger">{{ $errors->first('email') }}</p>
                                                 @endif
                                             </div>
                                             <div class="form-group mb-15">
                                                 <label for="password-field">password</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password">
-                                                    <span toggle="#password-field" class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
+                                                    <input required id="password-field" type="password"
+                                                        class="form-control" name="password" placeholder="Password">
+                                                    <span toggle="#password-field"
+                                                        class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
                                                 </div>
-                                                @if($errors->has('password'))
-                                                  <p class="text-danger">{{ $errors->first('password') }}</p>
+                                                @if ($errors->has('password'))
+                                                    <p class="text-danger">{{ $errors->first('password') }}</p>
                                                 @endif
                                             </div>
-                                            <div class="admin-condition">
-                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                    <input class="checkbox" type="checkbox" id="check-1">
-                                                    <label for="check-1">
-                                                        <span class="checkbox-text">Creating an account means you’re okay
-                                                            with our <a href="#" class="color-primary">Terms of
-                                                                Service</a> and <a href="#" class="color-primary">Privacy
-                                                                Policy</a>
-                                                            my preference</span>
-                                                    </label>
+
+                                            <div class="form-group mb-15">
+                                                <label for="hotel-name">Hotel Name</label>
+                                                <div class="position-relative">
+                                                    <input required id="hotel-name" type="text"
+                                                        class="form-control" name="hotel-name" placeholder="hotel-name">
+                                                    <span toggle="#hotel-name"
+                                                        class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
                                                 </div>
+                                                @if ($errors->has('hotel-name'))
+                                                    <p class="text-danger">{{ $errors->first('hotel-name') }}</p>
+                                                @endif
                                             </div>
-                                            <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
-                                                <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
+
+                                            <div class="form-group mb-15">
+                                                <label for="hotel-name">Hotel Address</label>
+                                                <div class="position-relative">
+                                                    <input required id="hotel-address" type="text"
+                                                        class="form-control" name="hotel-address" placeholder="hotel-address">
+                                                    <span toggle="#hotel-address"
+                                                        class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
+                                                </div>
+                                                @if ($errors->has('hotel-address'))
+                                                    <p class="text-danger">{{ $errors->first('hotel-address') }}</p>
+                                                @endif
+                                            </div>
+                                            <div
+                                                class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
+                                                <button
+                                                    class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
                                                     Create Account
                                                 </button>
                                             </div>
@@ -114,4 +136,5 @@
     <script src="{{ asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.min.js') }}"></script>
 </body>
+
 </html>

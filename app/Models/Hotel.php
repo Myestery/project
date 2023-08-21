@@ -13,6 +13,8 @@ class Hotel extends Model
         'images' => 'array'
     ];
 
+    protected $guarded = [];
+
     public function rooms()
     {
         return $this->hasMany(Room::class);
