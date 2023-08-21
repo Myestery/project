@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/admins/create', [HotelsController::class, 'createStaff'])->name('admin.create');
         Route::post('/admins/create', [HotelsController::class, 'addStaff'])->name('admin.store');
         Route::post('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+        Route::post('/admin/rooms/create', [HotelsController::class, 'createRoom'])->name('admin.rooms.create');
         Route::get('/dashboard', [HotelsController::class, 'dashboard'])->name('dashboard');
     });
 });

@@ -11,6 +11,7 @@ class Room extends Model
 
     protected $appends = ['is_available','checkout_date'];
     protected $with = ['activeBooking'];
+    protected $guarded = [];
 
     public function getIsAvailableAttribute()
     {

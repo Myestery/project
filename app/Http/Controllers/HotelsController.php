@@ -48,24 +48,26 @@ class HotelsController extends Controller
         $hotels_above_3 = Hotel::where('rating', '>=', 3)->count();
         $hotels_above_2 = Hotel::where('rating', '>=', 2)->count();
         $hotels_above_1 = Hotel::where('rating', '>=', 1)->count();
-        return view('real.home', compact(
-            'title',
-            'description',
-            'hotels',
-            'states',
-            'hotels_with_5',
-            'hotels_above_4',
-            'hotels_above_3',
-            'hotels_above_2',
-            'hotels_above_1',
+        return view(
+            'real.home',
+            compact(
+                'title',
+                'description',
+                'hotels',
+                'states',
+                'hotels_with_5',
+                'hotels_above_4',
+                'hotels_above_3',
+                'hotels_above_2',
+                'hotels_above_1',
 
-            // search params
-            'min_price',
-            'max_price',
-            'selected_states',
-            'selected_ratings',
-            'search'
-        )
+                // search params
+                'min_price',
+                'max_price',
+                'selected_states',
+                'selected_ratings',
+                'search'
+            )
         );
     }
 
@@ -195,37 +197,39 @@ class HotelsController extends Controller
         // dd( $best_selling_rooms);
 
 
-        return view('real.dashboard', compact(
-            'title',
-            'description',
-            'hotel',
-            'rooms',
-            'total_customers',
-            'total_sales',
-            'total_rooms',
-            'total_bookings',
+        return view(
+            'real.dashboard',
+            compact(
+                'title',
+                'description',
+                'hotel',
+                'rooms',
+                'total_customers',
+                'total_sales',
+                'total_rooms',
+                'total_bookings',
 
-            // graph
-            'week_keys',
-            'week_vals',
-            'month_keys',
-            'month_vals',
-            'year_keys',
-            'year_vals',
+                // graph
+                'week_keys',
+                'week_vals',
+                'month_keys',
+                'month_vals',
+                'year_keys',
+                'year_vals',
 
-            // pie chart
-            'total_revenue_from_single',
-            'total_revenue_from_double',
-            'total_revenue_from_hall',
+                // pie chart
+                'total_revenue_from_single',
+                'total_revenue_from_double',
+                'total_revenue_from_hall',
 
-            // percentages
-            'percentage_from_single',
-            'percentage_from_double',
-            'percentage_from_hall',
+                // percentages
+                'percentage_from_single',
+                'percentage_from_double',
+                'percentage_from_hall',
 
-            // best selling rooms
-            'best_selling_rooms'
-        )
+                // best selling rooms
+                'best_selling_rooms'
+            )
         );
     }
 
@@ -383,5 +387,32 @@ class HotelsController extends Controller
         $description = "Create Staff";
         // get all users that are not admins
         return view('real.admins.add', compact('title', 'description', 'hotel'));
+    }
+
+    public function createRoom(Request $request)
+    {
+        $request->validate([
+            'number' => 'required',
+            'type' => 'required',
+            'price' => 'required',
+            'capacity' => 'required',
+            'description' => 'required'
+        ]);
+        $hotel = auth()->user()->hotel;
+        $room = new Room();
+        $room->number = $request->input('number');
+        $room->type = $request->input('type');
+        $room->price = $request->input('price');
+        $room->capacity = $request->input('capacity');
+        $room->description = $request->input('description');
+        $room->hotel_id = $hotel->id;
+
+
+        $room->image = "https://media-cdn.tripadvisor.com/media/photo-m/1280/23/8f/c3/3e/laur-hotels.jpg";
+        $room->save();
+
+        // dd($room);
+
+        return redirect()->route('admin.rooms')->with('success', 'Room created successfully.');
     }
 }

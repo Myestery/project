@@ -28,7 +28,8 @@
                                 <form action="/admin/rooms" class="order-search__form">
                                     <img src="{{ asset('assets/img/svg/search.svg') }}" alt="search" class="svg">
                                     <input class="form-control me-sm-2 border-0 box-shadow-none" type="search"
-                                        name="search" placeholder="Filter by room number" aria-label="Search" value="{{$search}}">
+                                        name="search" placeholder="Filter by room number" aria-label="Search"
+                                        value="{{ $search }}">
                                 </form>
                             </div><!-- End: .project-search -->
                             <div class="project-category d-flex align-items-center ms-md-30 mt-xxl-10 mt-15">
@@ -52,9 +53,11 @@
                             </div><!-- End: .project-category -->
                         </div><!-- End: .d-flex -->
                         <div class="content-center mt-10">
-                            <div class="button-group m-0 mt-xl-0 mt-sm-10 order-button-group">
-                                <button type="button" class="btn btn-sm btn-primary me-0 radius-md">
-                                    <i class="la la-plus"></i> Add Room</button>
+                            <div class="action-btn">
+                                <a href="#" class="btn px-15 btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#add-contact">
+                                    <i class="las la-plus fs-16"></i>Add New
+                                </a>
                             </div>
                         </div><!-- End: .content-center -->
                     </div><!-- End: .project-top-wrapper -->
@@ -114,7 +117,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="orderDatatable-title">
-                                                             <a href="/rooms/{{$room->id}}" class="d-block mb-0">
+                                                            <a href="/rooms/{{ $room->id }}" class="d-block mb-0">
                                                                 {{ $room->number }}
                                                             </a>
                                                         </div>
@@ -229,12 +232,12 @@
                                                         <div class="me-3 d-flex align-items-center">
                                                             <div class="checkbox-group-wrapper">
                                                                 <div class="checkbox-group d-flex">
- 
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="orderDatatable-title">
-                                                             <a href="/rooms/{{$room->id}}" class="d-block mb-0">
+                                                            <a href="/rooms/{{ $room->id }}" class="d-block mb-0">
                                                                 {{ $room->number }}
                                                             </a>
                                                         </div>
@@ -350,12 +353,12 @@
                                                         <div class="me-3 d-flex align-items-center">
                                                             <div class="checkbox-group-wrapper">
                                                                 <div class="checkbox-group d-flex">
- 
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="orderDatatable-title">
-                                                             <a href="/rooms/{{$room->id}}" class="d-block mb-0">
+                                                            <a href="/rooms/{{ $room->id }}" class="d-block mb-0">
                                                                 {{ $room->number }}
                                                             </a>
                                                         </div>
@@ -426,5 +429,103 @@
                 </div><!-- End: .userDatatable -->
             </div><!-- End: .col -->
         </div>
+        {{-- add room moda; --}}
+        <div class="modal fade add-contact" id="add-contact" role="dialog" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content radius-xl">
+                    <div class="modal-header">
+                        <h6 class="modal-title fw-500" id="staticBackdropLabel">Add Room</h6>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="uil uil-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add-new-contact">
+                            <form action="/admin/rooms/create" method="POST">
+                                @csrf
+                                <div class="form-group mb-20">
+
+                                    <div class="account-profile d-flex align-items-center mb-4 ">
+                                        <div class="ap-img pro_img_wrapper">
+                                            <input id="profile-picture" type="file" accept="image/*" name="image"
+                                                class="d-none image-upload-field"
+                                                data-preview-element="profile-picture-preview">
+                                            <!-- Profile picture image-->
+                                            <label for="profile-picture">
+                                                <img src="{{ asset('assets/img/svg/user.svg') }}" alt="user"
+                                                    class="profile-picture-preview ap-img__main rounded-circle wh-120 bg-lighter d-flex">
+
+                                                <span title="Pick an image" id="remove_pro_pic"
+                                                    class="cross clear-input-file-btn" data-input-has-file="0"
+                                                    data-pick-title="Pick an image"
+                                                    data-pick-icon="{{ asset('assets/img/svg/camera-white.svg') }}"
+                                                    data-clear-title="Remove"
+                                                    data-clear-icon="{{ asset('assets/img/svg/close-white.svg') }}"
+                                                    data-input-element-id="profile-picture"
+                                                    data-preview-element="profile-picture-preview"
+                                                    data-default-preview-image="{{ asset('assets/img/svg/user.svg') }}">
+                                                    <img src="{{ asset('assets/img/svg/camera-white.svg') }}"
+                                                        alt="camera">
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="account-profile__title">
+                                            <h6 class="fs-15 ms-20 fw-500 text-capitalize">Room photo</h6>
+                                        </div>
+                                    </div>
+
+
+                                    <label>Room Number:</label>
+                                    <input type="text" name="number" class="form-control form-control-lg"
+                                        placeholder="number" value="R-" required>
+                                </div>
+
+                                <div class="form-group mb-20">
+                                    <label>Capacity</label>
+                                    <input type="number" name="capacity" class="form-control form-control-lg"
+                                        placeholder="text" required min="{{ now()->format('Y-m-d') }}">
+                                </div>
+
+                                <div class="form-group mb-20">
+                                    <label>Type</label>
+                                    <select class="form-control ih-medium ip-gray radius-xs b-light px-15" name="type"
+                                        id="user" required>
+                                        <option disabled>Choose Customer</option>
+                                        <option value="Single">Single
+                                        </option>
+                                        <option value="Double">Double
+                                        </option>
+                                        <option value="Hall">Hall
+                                        </option>
+                                        {{-- @endforeach --}}
+                                    </select>
+                                </div>
+                                <div class="form-group mb-20">
+                                    <label>Description:</label>
+                                    <input type="text" name="description" class="form-control form-control-lg"
+                                        placeholder="A good Room" value="" required>
+                                </div>
+
+                                <div class="form-group mb-20">
+                                    <label>Price</label>
+                                    <input type="number" name="price" class="form-control form-control-lg"
+                                        placeholder="5000" required>
+                                </div>
+
+                                <div class="button-group d-flex pt-20">
+                                    <button type="submit" class="btn btn-primary btn-default btn-squared "> Add Room
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script></script>
 @endsection
