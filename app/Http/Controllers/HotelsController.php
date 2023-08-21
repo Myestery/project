@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Hotel;
-use App\Models\Booking;
 use App\Models\State;
+use App\Models\Booking;
+use App\Models\HotelAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class HotelsController extends Controller
 {
@@ -35,7 +37,7 @@ class HotelsController extends Controller
                 return $query->whereIn('state_id', $selected_states);
             })
             ->when(count($selected_ratings) > 0, function ($query) use ($selected_ratings) {
-                return $query->where('rating','>=', min($selected_ratings));
+                return $query->where('rating', '>=', min($selected_ratings));
             })
             ->paginate();
         $states = State::withCount('hotels')->get();
@@ -63,7 +65,8 @@ class HotelsController extends Controller
             'selected_states',
             'selected_ratings',
             'search'
-        ));
+        )
+        );
     }
 
     public function view(Hotel $hotel)
@@ -159,17 +162,17 @@ class HotelsController extends Controller
         $year_keys = $total_bookings_yearly->keys()->toArray();
         $year_vals = $total_bookings_yearly->values()->toArray();
         // join rooms and bookings, get bookings where type is single, double and hall
-        $total_revenue_from_single =  DB::table('bookings')
+        $total_revenue_from_single = DB::table('bookings')
             ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
             ->where('rooms.type', '=', 'Single')
             ->where('rooms.hotel_id', '=', $hotel->id)
             ->sum('bookings.total_price');
-        $total_revenue_from_double =  DB::table('bookings')
+        $total_revenue_from_double = DB::table('bookings')
             ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
             ->where('rooms.type', '=', 'Double')
             ->where('rooms.hotel_id', '=', $hotel->id)
             ->sum('bookings.total_price');
-        $total_revenue_from_hall =  DB::table('bookings')
+        $total_revenue_from_hall = DB::table('bookings')
             ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
             ->where('rooms.type', '=', 'Hall')
             ->where('rooms.hotel_id', '=', $hotel->id)
@@ -222,7 +225,8 @@ class HotelsController extends Controller
 
             // best selling rooms
             'best_selling_rooms'
-        ));
+        )
+        );
     }
 
     public function adminRooms()
@@ -250,7 +254,7 @@ class HotelsController extends Controller
     {
         $title = $room->number;
         $description = $room->number;
-        $hotel  = $room->hotel;
+        $hotel = $room->hotel;
         $bookings = $room->bookings()->where('check_out', '>=', now())->get();
         // now from these bookings get all the dates between the check and checkout, save to an array in the format 2023-08-15'
         $booked_dates = [];
@@ -283,5 +287,101 @@ class HotelsController extends Controller
         $search = $request->input('search');
         $hotels = Hotel::where('name', 'LIKE', "%{$search}%")->orWhere('address', 'LIKE', "%{$search}%")->get();
         return view('real.hotels.search_results', compact('title', 'description', 'hotels', 'search'));
+    }
+
+    // public function create()
+    // {
+    //     $title = "Create Hotel";
+    //     $description = "Create Hotel";
+    //     $states = State::all();
+    //     return view('real.hotels.create', compact('title', 'description', 'states'));
+    // }
+
+    public function admins()
+    {
+        $title = "View Admins";
+        $hotel = auth()->user()->hotel;
+        $description = "View Admins";
+        $admins = $hotel->admins()->get();
+        return view('real.admins', compact('title', 'description', 'admins'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'state_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+            'min_price' => 'required',
+            'max_price' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        // dd($request->all());
+        $hotel = new Hotel();
+        $hotel->name = $request->input('name');
+        $hotel->state_id = $request->input('state_id');
+        $hotel->address = $request->input('address');
+        $hotel->description = $request->input('description');
+        $hotel->min_price = $request->input('min_price');
+        $hotel->max_price = $request->input('max_price');
+        $hotel->save();
+
+        // upload image
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images/hotels'), $imageName);
+        $hotel->image = $imageName;
+        $hotel->save();
+
+        return redirect()->route('admin.rooms')->with('success', 'Hotel created successfully.');
+    }
+
+    public function addStaff(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'role' => 'required|in:admin,staff',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:95048',
+            'password' => 'required|min:5',
+            'name' => 'required'
+        ]);
+        $hotel = auth()->user()->hotel;
+        $user = User::where('email', $request->input('email'))->first();
+        if ($user) {
+            return back()->with('error', 'User already exists.');
+        }
+
+        $imageUrl = null;
+        // upload image if any
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images/users'), $imageName);
+            $imageUrl = asset('images/users/' . $imageName);
+        }
+
+        // create user
+        $user = User::create([
+            'name' => $request->input('name'),
+            'image' => $imageUrl,
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password'))
+        ]);
+
+        HotelAdmin::create([
+            'user_id' => $user->id,
+            'hotel_id' => $hotel->id,
+            'role' => $request->input('role')
+        ]);
+
+        return redirect('/admins')->with('success', 'Staff created successfully.');
+    }
+
+    public function createStaff()
+    {
+        $hotel = auth()->user()->hotel;
+        $title = "Create Hotel";
+        $description = "Create Staff";
+        // get all users that are not admins
+        return view('real.admins.add', compact('title', 'description', 'hotel'));
     }
 }

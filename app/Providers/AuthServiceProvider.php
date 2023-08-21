@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('can-manage-hotels', function ($user) {
             // Here, implement the logic to check if the user has the specified hotel_id
-            return !!$user->hotel_id;
+            return !!$user->hotel;
         });
     }
 }

@@ -32,4 +32,9 @@ class Hotel extends Model
     {
         return $this->belongsTo(State::class);
     }
+
+    public function admins()
+    {
+        return $this->hasManyThrough(User::class, HotelAdmin::class, 'hotel_id', 'id', 'id', 'user_id');
+    }
 }

@@ -39,5 +39,24 @@
                 <span class="menu-text">My Transactions</span>
             </a>
         </li>
+
+        @can('can-manage-hotels')
+            <li class="menu-title mt-30">
+                <span>Manage Staff</span>
+            </li>
+            <li>
+                <a href="/admins/create" class="{{ Request::is('/admins/create') ? 'active' : '' }}">
+                    <span class="nav-icon fa fa-address-book"></span>
+                    <span class="menu-text">Add Staff</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/admins" class="{{ Request::is('/admins') ? 'active' : '' }}">
+                    <span class="nav-icon fa fa-address-book"></span>
+                    <span class="menu-text">View Staff</span>
+                </a>
+            </li>
+        @endcan
     </ul>
 </div>

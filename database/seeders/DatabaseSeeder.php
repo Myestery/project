@@ -18,15 +18,15 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.org',
         ]);
-        \App\Models\User::factory(10)->create();
         \App\Models\User::factory()->create([
             'name' => 'Admin User',
-            'email' => 'admin@example.org',
-            'hotel_id' => 1,
+            'email' => 'admin@example.org'
         ]);
+        \App\Models\User::factory(10)->create();
         $this->call(StateSeeder::class);
         $this->call(HotelSeeder::class);
         $this->call(RoomSeeder::class);
         $this->call(BookingSeeder::class);
+        $this->call(HotelAdminSeeder::class);
     }
 }
