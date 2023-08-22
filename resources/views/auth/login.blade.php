@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.0/css/line.css">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon.png') }}">
 </head>
+
 <body>
     <main class="main-content">
         <div class="admin" style="background-image:url({{ asset('assets/img/admin-bg-light.png') }});">
@@ -35,19 +37,22 @@
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
                                                 <label for="email">Username Or Email Address</label>
-                                                <input type="text" class="form-control" id="email" name="email" value="test@example.org" placeholder="Email address">
-                                                @if($errors->has('email'))
-                                                    <p class="text-danger">{{$errors->first('email')}}</p>
+                                                <input type="text" class="form-control" id="email" name="email"
+                                                    value="test@example.org" placeholder="Email address">
+                                                @if ($errors->has('email'))
+                                                    <p class="text-danger">{{ $errors->first('email') }}</p>
                                                 @endif
                                             </div>
                                             <div class="form-group mb-15">
                                                 <label for="password-field">password</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password" value="password">
-                                                    <span toggle="#password-field" class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
+                                                    <input id="password-field" type="password" class="form-control"
+                                                        name="password" placeholder="Password" value="password">
+                                                    <span toggle="#password-field"
+                                                        class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
                                                 </div>
-                                                @if($errors->has('password'))
-                                                    <p class="text-danger">{{$errors->first('password')}}</p>
+                                                @if ($errors->has('password'))
+                                                    <p class="text-danger">{{ $errors->first('password') }}</p>
                                                 @endif
                                             </div>
                                             <div class="admin-condition">
@@ -59,8 +64,11 @@
                                                 </div>
                                                 <a href="{{ route('forget_password') }}">forget password?</a>
                                             </div>
-                                            <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
-                                                <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
+                                            <div
+                                                class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
+                                                <button
+                                                    class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn "
+                                                    type="submit">
                                                     sign in
                                                 </button>
                                             </div>
@@ -104,4 +112,5 @@
     <script src="{{ asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.min.js') }}"></script>
 </body>
+
 </html>
